@@ -18,13 +18,14 @@ func _ready():
 	level_complete = false
 	game.current_level = self
 	
-	total_enemies = get_tree().get_nodes_in_group("enemy").size()
+	total_enemies = get_tree().get_nodes_in_group("enemies").size()
 	enemies_remaining = total_enemies
 	
 	# Initialize players with different starting positions and controls
 	if Game.snakes.size() >= 1:
 		Game.snakes[0].initialize(
-			"Player 1", 
+			"Player 1",
+			0,
 			Color.BLUE,
 			$P1_Spawn.global_position,
 			{"up": "ui_up", "down": "ui_down", "left": "ui_left", "right": "ui_right", 'shoot': 'p1_shoot'}
@@ -34,6 +35,7 @@ func _ready():
 	if Game.snakes.size() >= 2:
 		Game.snakes[1].initialize(
 			"Player 2", 
+			1,
 			Color.BLUE_VIOLET,
 			$P2_Spawn.global_position,
 			{"up": "p2_up", "down": "p2_down", "left": "p2_left", "right": "p2_right", 'shoot': 'p2_shoot'}
@@ -43,6 +45,7 @@ func _ready():
 	for i in range(2, Game.snakes.size()):
 		Game.snakes[i].initialize(
 			"Player " + str(i + 1),
+			i,
 			Color(randf(), randf(), randf()),  # Random color
 			Vector2.ZERO,
 			{"up": "", "down": "", "left": "", "right": ""},  # No controls - AI could go here

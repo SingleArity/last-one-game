@@ -1,3 +1,4 @@
+class_name Bullet
 extends Area2D
 
 const velocity: float = 400
@@ -13,5 +14,5 @@ func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group('snakes'):
 		pass ## todo incapacitate
 	if body.is_in_group('enemies'):
-		body.queue_free()
+		body.on_enemy_shot(player)
 		

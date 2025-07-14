@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://cpdvum1k4ownv"]
 
 [ext_resource type="Script" uid="uid://pus8qg7fftii" path="res://scripts/level.gd" id="1_4dbmb"]
-[ext_resource type="PackedScene" uid="uid://dkq0m4g2afoft" path="res://scenes/fluidsnake.tscn" id="2_4dbmb"]
+[ext_resource type="PackedScene" uid="uid://dergidtflf3y2" path="res://scenes/fluidsnake.tscn" id="2_4dbmb"]
 [ext_resource type="PackedScene" uid="uid://bh77ioonktc7q" path="res://scenes/enemy.tscn" id="3_655on"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4msxo"]

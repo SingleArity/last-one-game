@@ -32,12 +32,14 @@ func _ready():
 
 func initialize(
 	name: String,
+	id: int,
 	color: Color,
 	initial_pos: Vector2,
 	controls: Dictionary,
 	manager = null
 ):
 	player_name = name
+	$Head/ThingThatShoots.player = id
 	snake_color = color
 	$Head.global_position = initial_pos
 	
@@ -65,7 +67,7 @@ func _physics_process(delta: float) -> void:
 	if(paused):
 		return
 	$Head.velocity = move_vector * move_speed
-	$Head.move_and_slide()
+	$Head.move_and_slide()	
 	
 	var head_pos = $Head.global_position
 	
@@ -84,6 +86,8 @@ func _physics_process(delta: float) -> void:
 	#handle_tail_collision()
 
 func get_head_diff() -> Vector2:
+	if $Segments.get_point_count() == 0:
+		return Vector2.ZERO
 	return $Head.global_position - $Segments.points[$Segments.get_point_count() - 1]
 
 func handle_input():
