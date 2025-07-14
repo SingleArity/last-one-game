@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://bh77ioonktc7q"]
+
+[ext_resource type="Texture2D" uid="uid://b7l6isfj3htic" path="res://sprites/enemy_test.png" id="1_7p1mj"]
+[ext_resource type="Script" uid="uid://bbragq40xvkd0" path="res://scripts/enemy.gd" id="1_md0e3"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_md0e3"]
+radius = 16.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4ra3w"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_7p1mj")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Enemy" type="CharacterBody2D"]
+script = ExtResource("1_md0e3")
+move_speed = 100.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_md0e3")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_4ra3w")
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

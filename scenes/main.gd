@@ -9,6 +9,9 @@ var snakes: Array[Snake] = []
 var step_timer = 0.0
 var game_over = false
 
+var score_p1
+var score_p2
+
 func _ready():
 	# Find all Snake nodes in the scene
 	collect_snakes()
@@ -91,7 +94,7 @@ func check_collision_for_snake(checking_snake: Snake, head_pos: Vector2) -> Dict
 		var history = snake.get_position_history()
 		for i in range(start_index, history.size()):
 			if history[i] == head_pos:
-				print(checking_snake.player_name, " collision detected at position: ", head_pos, " with ", snake.player_name, " at history index: ", i)
+				#print(checking_snake.player_name, " collision detected at position: ", head_pos, " with ", snake.player_name, " at history index: ", i)
 				return {"collision_index": i, "target_snake": snake}
 	
 	return {"collision_index": -1, "target_snake": null}

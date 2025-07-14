@@ -89,7 +89,7 @@ func move_step():
 	# Add new position to history
 	position_history.insert(0, new_position)
 	
-	print(player_name, " - Head grid position: ", head_grid_position)
+	#print(player_name, " - Head grid position: ", head_grid_position)
 	
 	# Handle collision - chop off tail after collision point
 	if collision_data and collision_data.collision_index != -1:
@@ -99,7 +99,7 @@ func move_step():
 		else:
 			# Hit another snake - chop their tail
 			collision_data.target_snake.chop_tail_at_collision(collision_data.collision_index)
-			print(player_name, " sliced ", collision_data.target_snake.player_name, "'s tail!")
+			#print(player_name, " sliced ", collision_data.target_snake.player_name, "'s tail!")
 	
 	# Move segments to previous positions
 	for i in range(segments.size()):
@@ -123,7 +123,7 @@ func move_step():
 	check_death()
 
 func chop_tail_at_collision(collision_index: int):
-	print(player_name, " - Chopping tail at collision index: ", collision_index)
+	#print(player_name, " - Chopping tail at collision index: ", collision_index)
 	
 	# Calculate how many segments to keep
 	var segments_to_keep = collision_index - 1
@@ -140,11 +140,11 @@ func chop_tail_at_collision(collision_index: int):
 	if position_history.size() > segments_to_keep + 1:
 		position_history.resize(segments_to_keep + 1)
 	
-	print(player_name, " - Snake length after chopping: ", segments.size())
+	#print(player_name, " - Snake length after chopping: ", segments.size())
 
 func shrink_tail():
 	if segments.size() > 0:
-		print(player_name, " - Shrinking tail. Current length: ", segments.size())
+		#print(player_name, " - Shrinking tail. Current length: ", segments.size())
 		var segment_to_remove = segments.pop_back()
 		segment_to_remove.queue_free()
 		
@@ -152,11 +152,11 @@ func shrink_tail():
 		if position_history.size() > segments.size() + 1:
 			position_history.resize(segments.size() + 1)
 		
-		print(player_name, " - New length after shrinking: ", segments.size())
+		#print(player_name, " - New length after shrinking: ", segments.size())
 
 func check_death():
 	if segments.size() == 0:
-		print(player_name, " - DIED - Snake has no tail left!")
+		#print(player_name, " - DIED - Snake has no tail left!")
 		is_alive = false
 		head.modulate = Color.GRAY  # Gray out dead snake
 
