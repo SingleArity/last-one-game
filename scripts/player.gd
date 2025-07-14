@@ -1,8 +1,14 @@
 class_name Player
 extends Node
 
-var length = 300;
+var lengthf: float = 500.0;
+var length: int:
+	get():
+		return round(lengthf)
+	set(val):
+		lengthf = val
 var segment_length = 10;
+var shrink_per_sec = 10;
 
 var move_vector := Vector2.RIGHT
 var move_speed = 400.0
@@ -63,6 +69,7 @@ func _physics_process(delta: float) -> void:
 		$Segments.add_point(new_pos)
 		head_diff = get_head_diff()
 	
+	lengthf -= shrink_per_sec * delta
 	var max_segments = length / segment_length;
 	while $Segments.get_point_count() > max_segments:
 		$Segments.remove_point(0)
@@ -91,5 +98,5 @@ func handle_tail_collision(pos: Vector2, radius: float) -> bool:
 			collided_index = i
 	if collided_index != null:
 		$Segments.points = $Segments.points.slice(collided_index, $Segments.get_point_count())
-		length -= segment_length * collided_index
+		lengthf -= segment_length * collided_index
 	return collided_index != null

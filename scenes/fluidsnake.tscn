@@ -1,8 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://dkq0m4g2afoft"]
+[gd_scene load_steps=6 format=3 uid="uid://dergidtflf3y2"]
 
 [ext_resource type="Script" uid="uid://57iq6ym0hl8" path="res://scripts/player.gd" id="1_ucrwi"]
 [ext_resource type="Texture2D" uid="uid://rkfypq42mtu1" path="res://icon.svg" id="2_ich0w"]
 [ext_resource type="PackedScene" uid="uid://b5gc7oh375smn" path="res://thing_that_shoots.tscn" id="3_jpd0e"]
+
+[sub_resource type="Curve" id="Curve_jpd0e"]
+_data = [Vector2(0, 0), 0.0, 4.23628, 0, 0, Vector2(0.252446, 0.694472), 1.30183, 1.30183, 0, 0, Vector2(1, 0.989731), 0.0, 0.0, 0, 0]
+point_count = 3
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_76ynw"]
 
@@ -10,9 +14,11 @@
 script = ExtResource("1_ucrwi")
 
 [node name="Segments" type="Line2D" parent="."]
-width = 30.0
+width = 20.0
+width_curve = SubResource("Curve_jpd0e")
 
-[node name="Head" type="CharacterBody2D" parent="."]
+[node name="Head" type="CharacterBody2D" parent="." groups=["snakes"]]
+collision_layer = 2
 
 [node name="Head" type="CollisionShape2D" parent="Head"]
 shape = SubResource("CircleShape2D_76ynw")
