@@ -26,7 +26,6 @@ func _physics_process(delta: float) -> void:
 		EnemyState.IDLE:
 			pass
 		EnemyState.MOVE:
-			print(move_direction)
 			velocity = move_direction * move_speed
 			move_and_slide()
 	

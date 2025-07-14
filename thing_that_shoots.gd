@@ -12,10 +12,6 @@ func _ready():
 	$Cooldown.wait_time = cooldown_sec
 	$Reload.wait_time = reload_sec
 
-func _input(event: InputEvent) -> void:
-	if (event.is_action("ui_accept")):
-		try_shoot()
-
 func try_shoot():
 	var can_shoot = is_cooled && bullets > 0
 	if can_shoot:
@@ -24,6 +20,7 @@ func try_shoot():
 func shoot():
 	var bullet: Node2D = bullet_scene.instantiate()
 	bullet.rotation = global_rotation
+	bullet.position = global_position
 	get_node('/root').add_child(bullet)
 	is_cooled = false
 	bullets -= 1

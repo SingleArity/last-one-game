@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://dergidtflf3y2"]
+[gd_scene load_steps=5 format=3 uid="uid://dergidtflf3y2"]
 
-[ext_resource type="Script" uid="uid://mdljwq0jxegh" path="res://fluidsnake.gd" id="1_ucrwi"]
+[ext_resource type="Script" uid="uid://57iq6ym0hl8" path="res://scripts/player.gd" id="1_ucrwi"]
 [ext_resource type="Texture2D" uid="uid://rkfypq42mtu1" path="res://icon.svg" id="2_ich0w"]
+[ext_resource type="PackedScene" uid="uid://b5gc7oh375smn" path="res://thing_that_shoots.tscn" id="3_jpd0e"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_76ynw"]
 
@@ -9,6 +10,7 @@
 script = ExtResource("1_ucrwi")
 
 [node name="Segments" type="Line2D" parent="."]
+width = 30.0
 
 [node name="Head" type="CharacterBody2D" parent="."]
 
@@ -16,4 +18,8 @@ script = ExtResource("1_ucrwi")
 shape = SubResource("CircleShape2D_76ynw")
 
 [node name="Sprite2D" type="Sprite2D" parent="Head"]
+rotation = -1.57079
 texture = ExtResource("2_ich0w")
+
+[node name="ThingThatShoots" parent="Head" instance=ExtResource("3_jpd0e")]
+position = Vector2(100, 0)

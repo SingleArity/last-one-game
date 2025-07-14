@@ -1,7 +1,8 @@
 extends Area2D
 
-@export var velocity: float = 1000.0
+const velocity: float = 100
 
-# it always goes right locally, rotate bullet to change the direction
-func _process(delta: float) -> void:
-	position += Vector2.RIGHT * velocity * delta
+func _physics_process(delta: float) -> void:
+	position += (Vector2.RIGHT * velocity * delta).rotated(global_rotation)
+	for snake: Player in Game.snakes:
+		snake.handle_tail_collision(global_position, $CollisionShape2D.shape.radius)
