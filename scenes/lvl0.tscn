@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://cpdvum1k4ownv"]
 
-[ext_resource type="Script" uid="uid://bldkyeyd3vlmm" path="res://scenes/main.gd" id="1_4dbmb"]
-[ext_resource type="PackedScene" uid="uid://ck2rqgrhvd7vr" path="res://scenes/snake.tscn" id="2_qc31d"]
+[ext_resource type="Script" uid="uid://cf2g0eapc6k78" path="res://scripts/level.gd" id="1_4dbmb"]
+[ext_resource type="PackedScene" uid="uid://dbubjs64nxdcb" path="res://scenes/player.tscn" id="2_4dbmb"]
 [ext_resource type="PackedScene" uid="uid://bh77ioonktc7q" path="res://scenes/enemy.tscn" id="3_655on"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4msxo"]
@@ -10,15 +10,18 @@ size = Vector2(720, 64)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5fb3c"]
 size = Vector2(64, 720)
 
-[node name="Main" type="Node2D"]
+[node name="Level0" type="Node2D"]
 script = ExtResource("1_4dbmb")
 
-[node name="Snake" parent="." instance=ExtResource("2_qc31d")]
+[node name="P1" parent="." instance=ExtResource("2_4dbmb")]
 
-[node name="Snake2" parent="." instance=ExtResource("2_qc31d")]
+[node name="P2" parent="." instance=ExtResource("2_4dbmb")]
 
 [node name="Enemy" parent="." instance=ExtResource("3_655on")]
-position = Vector2(126, 112)
+position = Vector2(361, 209)
+
+[node name="Enemy2" parent="." instance=ExtResource("3_655on")]
+position = Vector2(366, 499)
 
 [node name="WallTop" type="StaticBody2D" parent="."]
 position = Vector2(360, -32)

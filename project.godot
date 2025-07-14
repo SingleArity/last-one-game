@@ -11,9 +11,13 @@ config_version=5
 [application]
 
 config/name="Last One Game Jam"
-run/main_scene="res://scenes/scene.tscn"
+run/main_scene="uid://cpdvum1k4ownv"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+Game="*res://scripts/game.gd"
 
 [display]
 
