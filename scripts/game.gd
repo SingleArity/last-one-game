@@ -18,7 +18,7 @@ var levels = ["lvl0","lvl1","lvl2","lvl3"]
 
 var lvl_index = 0
 
-var last_killer
+var last_killer = null
 
 func _ready() -> void:
 	score_p1 = 0
@@ -59,7 +59,7 @@ func next_level():
 	
 	if last_killer == 0:
 		p2_length *= .8
-	else:
+	elif last_killer == 1:
 		p1_length *= .8
 		
 	var scene_file = "res://scenes/%s.tscn" % levels[lvl_index]
