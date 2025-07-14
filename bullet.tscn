@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://dlu7o2e8ep46c" path="res://bullet.gd" id="1_v8qja"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_v8qja"]
+resource_local_to_scene = true
 radius = 30.0
 
 [node name="Bullet" type="Area2D"]

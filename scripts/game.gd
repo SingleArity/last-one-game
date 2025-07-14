@@ -33,6 +33,13 @@ func on_enemy_killed(killer_player):
 		score_p2 += points
 	ui_game.update_scores()
 
+func lose(player):
+	if(player == 0):
+		score_p1 -= 1000
+	elif(player == 1):
+		score_p2 -= 1000
+	ui_game.update_scores()
+
 func set_players_enabled(state):
 	for player in snakes:
 		player.paused = !state

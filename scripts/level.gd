@@ -28,7 +28,7 @@ func _ready():
 			0,
 			Color.BLUE,
 			$P1_Spawn.global_position,
-			{"up": "ui_up", "down": "ui_down", "left": "ui_left", "right": "ui_right", 'shoot': 'p1_shoot'}
+			{"up": "ui_up", "down": "ui_down", "left": "ui_left", "right": "ui_right", 'shoot': 'p1_shoot', 'bomb': 'p1_bomb'}
 		)
 		
 	
@@ -38,7 +38,7 @@ func _ready():
 			1,
 			Color.BLUE_VIOLET,
 			$P2_Spawn.global_position,
-			{"up": "p2_up", "down": "p2_down", "left": "p2_left", "right": "p2_right", 'shoot': 'p2_shoot'}
+			{"up": "p2_up", "down": "p2_down", "left": "p2_left", "right": "p2_right", 'shoot': 'p2_shoot', 'bomb': 'p2_bomb'}
 		)
 	
 	# Initialize additional players with default controls if more exist
