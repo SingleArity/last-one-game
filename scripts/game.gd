@@ -5,6 +5,9 @@ var aspect_ratio
 var score_p1
 var score_p2
 
+var p1_length := 500
+var p2_length := 500
+
 var snakes = []
 
 var ui_game 
@@ -14,6 +17,8 @@ var current_level
 var levels = ["lvl0","lvl1","lvl2","lvl3"]
 
 var lvl_index = 0
+
+var last_killer
 
 func _ready() -> void:
 	score_p1 = 0
@@ -31,6 +36,7 @@ func on_enemy_killed(killer_player):
 		score_p1 += points
 	elif(killer_player == 1):
 		score_p2 += points
+	last_killer = killer_player
 	ui_game.update_scores()
 
 func lose(player):
@@ -50,6 +56,12 @@ func next_level():
 	lvl_index += 1
 	if(lvl_index >= levels.size()):
 		lvl_index = 0
+	
+	if last_killer == 0:
+		p2_length *= .8
+	else:
+		p1_length *= .8
+		
 	var scene_file = "res://scenes/%s.tscn" % levels[lvl_index]
 	var scene = load(scene_file).instantiate()
 	get_parent().call_deferred("add_child", scene)

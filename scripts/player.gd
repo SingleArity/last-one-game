@@ -43,10 +43,11 @@ func initialize(
 	color: Color,
 	initial_pos: Vector2,
 	controls: Dictionary,
-	manager = null
+	inlength
 ):
 	player_id = id
 	player_name = name
+	length = inlength
 	
 	$Head/ThingThatShoots.player = id
 	snake_color = color
@@ -84,6 +85,7 @@ func _physics_process(delta: float) -> void:
 	
 	if $Segments.get_point_count() <= 0 and has_bomb:
 		explode()
+		return
 	
 	var head_diff := get_head_diff()
 	while head_diff.length() >= segment_length:
@@ -120,6 +122,8 @@ func handle_input():
 		
 func drop_bomb():
 	print('drop bomb')
+	if !is_alive or !has_bomb:
+		return
 	var new_player = duplicate()
 	new_player.has_bomb = false
 	new_player.length = 0
