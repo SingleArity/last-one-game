@@ -52,7 +52,8 @@ func initialize(
 	$Head/ThingThatShoots.player = id
 	snake_color = color
 	$Head.global_position = initial_pos
-	
+	if id == 1:
+		$Head/Sprite2D.texture = load("res://sprites/player2_test.png")
 	# Set up controls
 	input_up = controls.get("up", "")
 	input_down = controls.get("down", "")
