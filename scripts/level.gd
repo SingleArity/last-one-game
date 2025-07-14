@@ -1,8 +1,24 @@
 extends Node2D
 
+@onready var game = get_node("/root/Game")
+
+const STEP_TIME = 0.15
+const STARTING_GRID_X = 5
+const STARTING_GRID_Y = 5
+
+var step_timer = 0.0
+
+var total_enemies
+var enemies_remaining
+
 var game_over = false
 
 func _ready():
+	game.current_level = self
+	
+	total_enemies = get_tree().get_nodes_in_group("enemy").size()
+	enemies_remaining = total_enemies
+	
 	# Initialize players with different starting positions and controls
 	if Game.snakes.size() >= 1:
 		Game.snakes[0].initialize(
@@ -34,6 +50,7 @@ func _process(delta):
 	if game_over:
 		return
 
+
 func _physics_process(delta):
 	if game_over:
 		return
@@ -60,3 +77,7 @@ func check_game_over():
 		game_over = true
 		print("Game Over!")
 		print("Snake died!")
+		
+func update_enemies(new_total):
+	total_enemies = new_total
+	enemies_remaining = total_enemies

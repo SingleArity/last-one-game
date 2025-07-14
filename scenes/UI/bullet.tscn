@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://6xnh6mee7ipw"]
+
+[ext_resource type="Texture2D" uid="uid://djymd776x6qjc" path="res://sprites/bullet_test.png" id="1_ptq7f"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tuyoq"]
+atlas = ExtResource("1_ptq7f")
+region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ptq7f"]
+atlas = ExtResource("1_ptq7f")
+region = Rect2(8, 0, 8, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fjrip"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tuyoq")
+}],
+"loop": true,
+"name": &"available",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ptq7f")
+}],
+"loop": true,
+"name": &"out",
+"speed": 5.0
+}]
+
+[node name="Bullet" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_fjrip")
+animation = &"out"

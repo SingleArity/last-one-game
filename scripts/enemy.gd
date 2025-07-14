@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+@onready var signals = get_node("/root/Signals")
+@onready var game = get_node("/root/Game")
 @onready var state_timer = $Timer
 
 @export var move_speed: float
@@ -48,8 +50,11 @@ func change_state(new_state):
 	state_timer.wait_time = randf_range(wait_low,wait_high)
 	state_timer.start()
 	state = new_state
-	
 
+func on_enemy_shot():
+	signals.emit_signal("enemy_killed")
+	game.current_level.update_enemies(get_tree().get_nodes_in_group("enemy").size()-1)
+	queue_free()
 
 func _on_timer_timeout() -> void:
 	match state:
