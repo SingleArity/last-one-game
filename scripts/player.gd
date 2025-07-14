@@ -25,6 +25,8 @@ var input_right = 'ui_right'
 var input_shoot = 'p1_shoot'
 var input_bomb = 'p1_bomb'
 
+var paused = false
+
 func _ready():
 	Game.snakes.append(self)
 
@@ -54,9 +56,14 @@ func initialize(
 		$Segments.add_point(point)
 
 func _process(_d):
+	if(paused):
+		#player paused, no takey input
+		return
 	handle_input()
 
 func _physics_process(delta: float) -> void:
+	if(paused):
+		return
 	$Head.velocity = move_vector * move_speed
 	$Head.move_and_slide()
 	

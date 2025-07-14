@@ -11,6 +11,10 @@ var ui_game
 
 var current_level
 
+var levels = ["lvl0","lvl1","lvl2","lvl3"]
+
+var lvl_index = 0
+
 func _ready() -> void:
 	score_p1 = 0
 	score_p2 = 0
@@ -22,9 +26,24 @@ func on_enemy_killed(killer_player):
 	print("enemy ded")
 	var points = 50
 	if(current_level.enemies_remaining == 1):
-		points += 1000
+		points += 950
 	if(killer_player == 0):
 		score_p1 += points
 	elif(killer_player == 1):
 		score_p2 += points
 	ui_game.update_scores()
+
+func set_players_enabled(state):
+	for player in snakes:
+		player.paused = state
+		
+func next_level():
+	snakes.clear()
+	current_level.queue_free()
+	lvl_index += 1
+	if(lvl_index >= levels.size()):
+		lvl_index = 0
+	var scene_file = "res://scenes/%s.tscn" % levels[lvl_index]
+	var scene = load(scene_file).instantiate()
+	get_parent().call_deferred("add_child", scene)	
+	

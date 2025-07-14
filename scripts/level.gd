@@ -12,8 +12,10 @@ var total_enemies
 var enemies_remaining
 
 var game_over = false
+var level_complete
 
 func _ready():
+	level_complete = false
 	game.current_level = self
 	
 	total_enemies = get_tree().get_nodes_in_group("enemy").size()
@@ -47,6 +49,9 @@ func _ready():
 		)
 
 func _process(delta):
+	if(level_complete):
+		if(Input.is_action_just_pressed("p1_shoot") || Input.is_action_just_pressed("p2_shoot")):
+			game.next_level()
 	if game_over:
 		return
 
@@ -81,3 +86,7 @@ func check_game_over():
 func update_enemies(new_total):
 	total_enemies = new_total
 	enemies_remaining = total_enemies
+	if(new_total == 0):
+		level_complete = true
+		game.set_players_enabled(false)
+		
