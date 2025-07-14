@@ -8,6 +8,8 @@
 [node name="Fluidsnake" type="Node"]
 script = ExtResource("1_ucrwi")
 
+[node name="Segments" type="Line2D" parent="."]
+
 [node name="Head" type="CharacterBody2D" parent="."]
 
 [node name="Head" type="CollisionShape2D" parent="Head"]
@@ -15,6 +17,3 @@ shape = SubResource("CircleShape2D_76ynw")
 
 [node name="Sprite2D" type="Sprite2D" parent="Head"]
 texture = ExtResource("2_ich0w")
-
-[node name="Segments" type="Line2D" parent="."]
-position = Vector2(-62, 0)

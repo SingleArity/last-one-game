@@ -1,7 +1,7 @@
 extends Node
 
-var length = 100;
-var segment_length = 1;
+var length = 300;
+var segment_length = 10;
 
 var move_vector := Vector2.RIGHT
 var move_speed = 100.0
@@ -9,10 +9,10 @@ var last_pos := Vector2.ZERO
 
 var is_alive = true
 
-var input_up
-var input_down
-var input_left
-var input_right
+var input_up = "ui_up"
+var input_down = "ui_down"
+var input_left = "ui_left"
+var input_right = "ui_right"
 
 func _ready():
 	var initial_segments = length / segment_length
@@ -20,6 +20,9 @@ func _ready():
 	for i in range(initial_segments):
 		point.x += segment_length
 		$Segments.add_point(point)
+
+func _process(_d):
+	handle_input()
 
 func _physics_process(delta: float) -> void:
 	$Head.velocity = move_vector * move_speed
