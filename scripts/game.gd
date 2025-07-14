@@ -35,7 +35,7 @@ func on_enemy_killed(killer_player):
 
 func set_players_enabled(state):
 	for player in snakes:
-		player.paused = state
+		player.paused = !state
 		
 func next_level():
 	snakes.clear()
@@ -45,5 +45,6 @@ func next_level():
 		lvl_index = 0
 	var scene_file = "res://scenes/%s.tscn" % levels[lvl_index]
 	var scene = load(scene_file).instantiate()
-	get_parent().call_deferred("add_child", scene)	
+	get_parent().call_deferred("add_child", scene)
+	ui_game.set_level_complete(false)
 	

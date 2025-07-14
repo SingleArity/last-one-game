@@ -89,7 +89,9 @@ func check_game_over():
 func update_enemies(new_total):
 	total_enemies = new_total
 	enemies_remaining = total_enemies
-	if(new_total == 0):
+	if(new_total <= 0):
+		print("LEVEL END")
 		level_complete = true
+		game.ui_game.set_level_complete(true)
 		game.set_players_enabled(false)
 		
