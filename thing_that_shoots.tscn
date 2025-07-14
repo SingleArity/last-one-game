@@ -6,6 +6,10 @@
 [node name="ThingThatShoots" type="Marker2D"]
 script = ExtResource("1_lnv46")
 bullet_scene = ExtResource("2_nbpix")
+cooldown_sec = null
+reload_sec = null
+max_bullets = null
+player = null
 
 [node name="Cooldown" type="Timer" parent="."]
 

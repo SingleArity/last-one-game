@@ -4,6 +4,7 @@ extends Marker2D
 @export var cooldown_sec: float = .1
 @export var reload_sec: float = .5
 @export var max_bullets := 3
+@export var player := 0
 
 @onready var bullets := max_bullets
 var is_cooled = true
@@ -18,9 +19,10 @@ func try_shoot():
 		shoot()
 
 func shoot():
-	var bullet: Node2D = bullet_scene.instantiate()
+	var bullet: Bullet = bullet_scene.instantiate()
 	bullet.rotation = global_rotation
 	bullet.position = global_position
+	bullet.player = player
 	get_node('/root').add_child(bullet)
 	is_cooled = false
 	bullets -= 1
