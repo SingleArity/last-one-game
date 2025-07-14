@@ -1,0 +1,40 @@
+extends Marker2D
+
+@export var bullet_scene: PackedScene
+@export var cooldown_sec: float = .1
+@export var reload_sec: float = .5
+@export var max_bullets := 3
+
+@onready var bullets := max_bullets
+var is_cooled = true
+
+func _ready():
+	$Cooldown.wait_time = cooldown_sec
+	$Reload.wait_time = reload_sec
+
+func _input(event: InputEvent) -> void:
+	if (event.is_action("ui_accept")):
+		try_shoot()
+
+func try_shoot():
+	var can_shoot = is_cooled && bullets > 0
+	if can_shoot:
+		shoot()
+
+func shoot():
+	var bullet: Node2D = bullet_scene.instantiate()
+	bullet.rotation = global_rotation
+	get_node('/root').add_child(bullet)
+	is_cooled = false
+	bullets -= 1
+	$Cooldown.start()
+	$Reload.start()
+
+
+func _on_reload_timeout() -> void:
+	bullets = clamp(bullets + 1, 0, max_bullets)
+	$Reload.start()
+
+
+func _on_cooldown_timeout() -> void:
+	is_cooled = true
