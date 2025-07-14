@@ -57,9 +57,9 @@ func next_level():
 	if(lvl_index >= levels.size()):
 		lvl_index = 0
 	
-	if last_killer == 0:
+	if last_killer == 1:
 		p2_length *= .8
-	elif last_killer == 1:
+	elif last_killer == 0:
 		p1_length *= .8
 		
 	var scene_file = "res://scenes/%s.tscn" % levels[lvl_index]

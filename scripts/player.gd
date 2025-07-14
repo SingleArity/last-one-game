@@ -8,7 +8,7 @@ var length: int:
 	set(val):
 		lengthf = val
 var segment_length = 10;
-var shrink_per_sec = 10;
+var shrink_per_sec = 30;
 
 var move_vector := Vector2.RIGHT
 var move_speed = 400.0
