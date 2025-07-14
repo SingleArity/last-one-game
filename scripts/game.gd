@@ -2,6 +2,8 @@ extends Node
 
 @onready var signals = get_node("/root/Signals")
 
+var aspect_ratio
+
 var score_p1
 var score_p2
 
