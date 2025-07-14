@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://dergidtflf3y2"]
+
+[ext_resource type="Script" uid="uid://mdljwq0jxegh" path="res://fluidsnake.gd" id="1_ucrwi"]
+[ext_resource type="Texture2D" uid="uid://rkfypq42mtu1" path="res://icon.svg" id="2_ich0w"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_76ynw"]
+
+[node name="Fluidsnake" type="Node"]
+script = ExtResource("1_ucrwi")
+
+[node name="Head" type="CharacterBody2D" parent="."]
+
+[node name="Head" type="CollisionShape2D" parent="Head"]
+shape = SubResource("CircleShape2D_76ynw")
+
+[node name="Sprite2D" type="Sprite2D" parent="Head"]
+texture = ExtResource("2_ich0w")
+
+[node name="Segments" type="Line2D" parent="."]
+position = Vector2(-62, 0)

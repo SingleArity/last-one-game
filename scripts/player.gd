@@ -7,11 +7,9 @@ const DEFAULT_LENGTH = 20
 const SHRINK_INTERVAL = 5
 const HISTORY_BUFFER = 5
 
-var segment_scene = preload("res://scenes/segment.tscn")
 var move_vector = Vector2.RIGHT
 var move_speed = 100.0
 
-var head_grid_position: Vector2i
 var position_history: Array[Vector2] = []
 var segments: Array[Node2D] = []
 var steps_taken = 0
@@ -33,7 +31,6 @@ var game_manager = null
 
 func initialize(name: String, start_pos: Vector2i, color: Color, controls: Dictionary, manager = null):
 	player_name = name
-	head_grid_position = start_pos
 	snake_color = color
 	game_manager = manager
 	
@@ -45,10 +42,8 @@ func initialize(name: String, start_pos: Vector2i, color: Color, controls: Dicti
 	
 	# Create initial segments
 	for i in range(DEFAULT_LENGTH):
-		var seg = segment_scene.instantiate()
-		seg.modulate = color
-		segment_container.add_child(seg)
-		segments.append(seg)
+		pass
+		## todo make segments
 
 func handle_input():
 	if not is_alive:
