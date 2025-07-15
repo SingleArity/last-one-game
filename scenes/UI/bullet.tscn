@@ -31,4 +31,4 @@ animations = [{
 
 [node name="Bullet" type="AnimatedSprite2D"]
 sprite_frames = SubResource("SpriteFrames_fjrip")
-animation = &"out"
+animation = &"available"

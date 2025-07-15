@@ -3,10 +3,11 @@ extends Marker2D
 @export var bullet_scene: PackedScene
 @export var cooldown_sec: float = .1
 @export var reload_sec: float = .5
-@export var max_bullets := 3
+@export var max_bullets: int
 @export var player := 0
 
-@onready var bullets := max_bullets
+@onready var player_ui
+@onready var bullets
 var is_cooled = true
 
 func _ready():
@@ -26,14 +27,14 @@ func shoot():
 	get_node('/root').add_child(bullet)
 	is_cooled = false
 	bullets -= 1
+	player_ui.update_bullets(bullets)
 	$Cooldown.start()
 	$Reload.start()
 
-
 func _on_reload_timeout() -> void:
 	bullets = clamp(bullets + 1, 0, max_bullets)
+	player_ui.update_bullets(bullets)
 	$Reload.start()
-
 
 func _on_cooldown_timeout() -> void:
 	is_cooled = true

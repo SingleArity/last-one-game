@@ -7,6 +7,7 @@ var score_p2
 
 var p1_length := 500
 var p2_length := 500
+var player_stun_time = 5.0
 
 var snakes = []
 
@@ -19,6 +20,7 @@ var levels = ["lvl0","lvl1","lvl2","lvl3"]
 var lvl_index = 0
 
 var last_killer = null
+
 
 func _ready() -> void:
 	score_p1 = 0
@@ -39,7 +41,7 @@ func on_enemy_killed(killer_player):
 	last_killer = killer_player
 	ui_game.update_scores()
 
-func lose(player):
+func got_exploded(player):
 	if(player == 0):
 		score_p1 -= 1000
 	elif(player == 1):

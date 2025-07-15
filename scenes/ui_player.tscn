@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://bpirsjo8nnqox"]
+
+[ext_resource type="Script" uid="uid://dovp03bireuxh" path="res://scripts/ui.gd" id="1_hif4i"]
+[ext_resource type="PackedScene" uid="uid://6xnh6mee7ipw" path="res://scenes/UI/bullet.tscn" id="2_y58uf"]
+
+[node name="UI_Player" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_hif4i")
+bullet_scene = ExtResource("2_y58uf")
+
+[node name="Bullets" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0

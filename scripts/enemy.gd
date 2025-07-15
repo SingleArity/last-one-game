@@ -50,8 +50,11 @@ func change_state(new_state):
 	state = new_state
 
 func on_enemy_shot(killer_player):
+	Game.current_level.enemies_remaining -= 1
 	Signals.emit_signal("enemy_killed", killer_player)
-	Game.current_level.update_enemies(get_tree().get_nodes_in_group("enemies").size()-1)
+	print("enemies left:")
+	print(Game.current_level.enemies_remaining)
+	Game.current_level.update_enemies(Game.current_level.enemies_remaining)
 	queue_free()
 
 func _on_timer_timeout() -> void:

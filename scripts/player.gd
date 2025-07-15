@@ -26,8 +26,16 @@ var input_right = 'ui_right'
 var input_shoot = 'p1_shoot'
 var input_bomb = 'p1_bomb' 
 
+var ammo_total = 5
+var ammo_current
+
+var player_ui_scene = preload("res://scenes/ui_player.tscn")
+var ui_player
+
 var has_bomb = true
 var is_player = true
+var stunned = false
+var stunned_time: float = 0.0
 
 var bullet_scene = preload("res://bullet.tscn")
 var splosion_scene = preload("res://splosion.tscn")
@@ -35,13 +43,9 @@ var splosion_scene = preload("res://splosion.tscn")
 var paused = false
 
 func _ready():
-	print("new player ready func p", player_id)
 	Game.snakes.append(self)
 	
-
 func set_controls(player_id):
-	print("SETTING CONTROLS FOR PLAYER ", player_id)
-	print("object name", name)
 	var controls = {"up": "ui_up", "down": "ui_down", "left": "ui_left", "right": "ui_right", 'shoot': 'p1_shoot', 'bomb': 'p1_bomb'}
 	if(player_id == 1):
 		controls = {"up": "p2_up", "down": "p2_down", "left": "p2_left", "right": "p2_right", 'shoot': 'p2_shoot', 'bomb': 'p2_bomb'}
@@ -51,6 +55,16 @@ func set_controls(player_id):
 	input_right = controls.get("right", "")
 	input_shoot = controls.get("shoot", "")
 	input_bomb = controls.get("bomb", "")
+
+func init_bullets_ui():
+	ui_player = player_ui_scene.instantiate()
+	ui_player.num_bullets = ammo_current
+	ui_player.position = Vector2(0,0)
+	$Head.add_child(ui_player)
+	$Head/ThingThatShoots.player_ui = ui_player
+	$Head/ThingThatShoots.max_bullets = ammo_total
+	$Head/ThingThatShoots.bullets = ammo_current
+	ui_player.update_bullets(ammo_current)
 	
 func initialize(
 	name: String,
@@ -68,9 +82,8 @@ func initialize(
 	snake_color = color
 	$Head.global_position = initial_pos
 	if id == 1:
-		$Head/Sprite2D.texture = load("res://sprites/player2_test.png")
+		$Head/Sprite.animation = "idle_1"
 	# Set up controls
-
 	
 	input_up = controls.get("up", "")
 	input_down = controls.get("down", "")
@@ -84,10 +97,30 @@ func initialize(
 	for i in range(initial_segments):
 		point.x += segment_length
 		$Segments.add_point(point)
+	
+	ammo_current = ammo_total
+	
+	ui_player = player_ui_scene.instantiate()
+	ui_player.num_bullets = ammo_current
+	ui_player.position = Vector2(0,0)
+	$Head.add_child(ui_player)
+	$Head/ThingThatShoots.player_ui = ui_player
+	$Head/ThingThatShoots.max_bullets = ammo_total
+	$Head/ThingThatShoots.bullets = ammo_current
+	ui_player.update_bullets(ammo_current)
 
 func _process(_d):
+	
 	if(paused):
 		#player paused, no takey input
+		return
+	if(stunned):
+		stunned_time -= _d
+		#un-stun
+		if(stunned_time <= 0.0):
+			stunned_time = 0.0
+			stunned = false
+			$Head/Sprite.animation = "idle_%s" % player_id
 		return
 	handle_input()
 
@@ -131,7 +164,6 @@ func handle_input():
 	
 	move_vector = Vector2(Input.get_axis(input_left,input_right),Input.get_axis(input_up,input_down))
 	if move_vector.length() > 0:
-		print("handle input player ", player_id)
 		$Head.rotation = move_vector.angle()
 	
 	if Input.is_action_just_pressed(input_shoot):
@@ -141,7 +173,6 @@ func handle_input():
 		drop_bomb()
 		
 func drop_bomb():
-	print('drop bomb')
 	#remove existing player from game players list
 	Game.snakes.remove_at(player_id)
 	if !is_alive or !has_bomb:
@@ -154,12 +185,13 @@ func drop_bomb():
 	new_player.player_id = player_id
 	get_parent().add_child(new_player)
 	new_player.set_controls(player_id)
-	print("drop bomb func, player ", new_player.name)
+	new_player.ammo_current = ammo_current
+	new_player.init_bullets_ui()
 	Game.snakes[player_id] = new_player
 
 func explode():
 	has_bomb = false
-	is_alive = false
+	#is_alive = false
 	var expl = bullet_scene.instantiate()
 	expl.is_bomb = true
 	expl.scale_up(5)
@@ -170,8 +202,14 @@ func explode():
 	get_parent().add_child(splosion)
 	
 func got_exploded():
-	if is_alive:
-		Game.lose(player_id)
+	if is_alive && is_player:
+		Game.got_exploded(player_id)
+		#is_alive = false
+		stunned = true
+		stunned_time += Game.player_stun_time
+		$Head/Sprite.play("stun_%s" % player_id)
+	if(!is_player):
+		queue_free()
 
 func handle_tail_collision(pos: Vector2, radius: float) -> bool:
 	var rsq := radius * radius
