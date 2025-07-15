@@ -35,8 +35,23 @@ var splosion_scene = preload("res://splosion.tscn")
 var paused = false
 
 func _ready():
+	print("new player ready func p", player_id)
 	Game.snakes.append(self)
+	
 
+func set_controls(player_id):
+	print("SETTING CONTROLS FOR PLAYER ", player_id)
+	print("object name", name)
+	var controls = {"up": "ui_up", "down": "ui_down", "left": "ui_left", "right": "ui_right", 'shoot': 'p1_shoot', 'bomb': 'p1_bomb'}
+	if(player_id == 1):
+		controls = {"up": "p2_up", "down": "p2_down", "left": "p2_left", "right": "p2_right", 'shoot': 'p2_shoot', 'bomb': 'p2_bomb'}
+	input_up = controls.get("up", "")
+	input_down = controls.get("down", "")
+	input_left = controls.get("left", "")
+	input_right = controls.get("right", "")
+	input_shoot = controls.get("shoot", "")
+	input_bomb = controls.get("bomb", "")
+	
 func initialize(
 	name: String,
 	id: int,
@@ -55,6 +70,8 @@ func initialize(
 	if id == 1:
 		$Head/Sprite2D.texture = load("res://sprites/player2_test.png")
 	# Set up controls
+
+	
 	input_up = controls.get("up", "")
 	input_down = controls.get("down", "")
 	input_left = controls.get("left", "")
@@ -110,9 +127,11 @@ func get_head_diff() -> Vector2:
 func handle_input():
 	if not is_alive or not is_player:
 		return
-		
+	
+	
 	move_vector = Vector2(Input.get_axis(input_left,input_right),Input.get_axis(input_up,input_down))
 	if move_vector.length() > 0:
+		print("handle input player ", player_id)
 		$Head.rotation = move_vector.angle()
 	
 	if Input.is_action_just_pressed(input_shoot):
@@ -123,13 +142,19 @@ func handle_input():
 		
 func drop_bomb():
 	print('drop bomb')
+	#remove existing player from game players list
+	Game.snakes.remove_at(player_id)
 	if !is_alive or !has_bomb:
 		return
 	var new_player = duplicate()
 	new_player.has_bomb = false
 	new_player.length = 0
+	shrink_per_sec = 200
 	is_player = false
+	new_player.player_id = player_id
 	get_parent().add_child(new_player)
+	new_player.set_controls(player_id)
+	print("drop bomb func, player ", new_player.name)
 	Game.snakes[player_id] = new_player
 
 func explode():
