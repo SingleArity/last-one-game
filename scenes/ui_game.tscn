@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://c4pjnvkodt1q8"]
+[gd_scene load_steps=4 format=3 uid="uid://c4pjnvkodt1q8"]
 
 [ext_resource type="Script" uid="uid://bbgo46kml5agt" path="res://scripts/ui_game.gd" id="1_a7cbq"]
 [ext_resource type="FontFile" uid="uid://n5pl4diup1ls" path="res://fonts/8-bit Arcade In.ttf" id="2_y6wst"]
+[ext_resource type="Script" uid="uid://c2sxqxp72n0nc" path="res://scripts/dev_console.gd" id="3_y6wst"]
 
 [node name="GameUI" type="Control"]
 layout_mode = 3
@@ -64,3 +65,25 @@ theme_override_fonts/normal_font = ExtResource("2_y6wst")
 theme_override_font_sizes/normal_font_size = 32
 text = "Press 'Shoot' to continue"
 horizontal_alignment = 1
+
+[node name="DevConsole" type="VBoxContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -40.0
+offset_right = 300.0
+grow_vertical = 0
+script = ExtResource("3_y6wst")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="DevConsole"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="Line" type="LineEdit" parent="DevConsole"]
+layout_mode = 2
+max_length = 100
+caret_blink = true
+
+[connection signal="text_submitted" from="DevConsole/Line" to="DevConsole" method="_on_line_text_submitted"]

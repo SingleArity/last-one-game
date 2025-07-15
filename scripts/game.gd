@@ -7,7 +7,7 @@ var score_p2
 
 var p1_length := 500
 var p2_length := 500
-var player_stun_time = 5.0
+var player_stun_time: float = 5.0
 
 var snakes = []
 
@@ -68,4 +68,7 @@ func next_level():
 	var scene = load(scene_file).instantiate()
 	get_parent().call_deferred("add_child", scene)
 	ui_game.set_level_complete(false)
+	
+func testfunc():
+	print("game test function")
 	

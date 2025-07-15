@@ -177,7 +177,7 @@ func drop_bomb():
 	Game.snakes.remove_at(player_id)
 	if !is_alive or !has_bomb:
 		return
-	var new_player = duplicate()
+	var new_player = duplicate(7)
 	new_player.has_bomb = false
 	new_player.length = 0
 	shrink_per_sec = 200

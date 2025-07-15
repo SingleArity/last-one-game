@@ -18,3 +18,12 @@ func update_scores():
 func set_level_complete(state):
 	level_complete.visible = state
 	continue_text.visible = state
+
+func _process(delta):
+	if(Input.is_action_just_pressed("dev_console")):
+		if(!$DevConsole.active):
+			$DevConsole.visible = true
+			$DevConsole.set_active(true)
+		else:
+			$DevConsole.visible = false
+			$DevConsole.set_active(false)
