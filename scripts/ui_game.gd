@@ -24,6 +24,8 @@ func _process(delta):
 		if(!$DevConsole.active):
 			$DevConsole.visible = true
 			$DevConsole.set_active(true)
+			Game.dev_console_active = true
 		else:
 			$DevConsole.visible = false
 			$DevConsole.set_active(false)
+			Game.dev_console_active = false
