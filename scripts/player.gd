@@ -163,22 +163,17 @@ func handle_input(delta):
 	if not is_alive or not is_player or Game.dev_console_active:
 		return
 	
-	var prev = move_vector
 	var h = Input.get_axis(input_left,input_right)
 	var v = Input.get_axis(input_up,input_down)
-	var target = Vector2(h,v)
-	if (target.length() != 0):
-		var diff = angle_difference(target.angle(), move_vector.angle())
-		var limit = max_rotation*delta
-		var clamped = clamp(-diff, -limit, limit)
-		move_vector = move_vector.rotated(clamped)
-		if (diff != 0):
-			print('======')
-			print(rad_to_deg(limit))
-			print(rad_to_deg(diff))
-			print(rad_to_deg(clamped))
-	
-	if move_vector.length() > 0:
+	move_vector = Vector2(h,v)
+	if (move_vector.length() > 0):
+		#var diff = angle_difference(move_vector.angle(), prev_move_vector.angle())
+		#var limit = max_rotation*delta
+		#var clamped = clamp(-diff, -limit, limit)
+		#if clamped:
+			#print(clamped)
+		#prev_move_vector = prev_move_vector.rotated(clamped)
+		#move_vector = prev_move_vector
 		$Head.rotation = move_vector.angle()
 	
 	if Input.is_action_just_pressed(input_shoot):
