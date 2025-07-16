@@ -54,7 +54,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"stun_0",
-"speed": 5.0
+"speed": 2.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -65,7 +65,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"stun_1",
-"speed": 5.0
+"speed": 2.0
 }]
 
 [node name="Fluidsnake" type="Node"]
@@ -83,7 +83,7 @@ shape = SubResource("CircleShape2D_76ynw")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="Head"]
 sprite_frames = SubResource("SpriteFrames_a8e5g")
-animation = &"stun_0"
+animation = &"idle_0"
 
 [node name="ThingThatShoots" parent="Head" instance=ExtResource("3_jpd0e")]
 position = Vector2(32, 0)

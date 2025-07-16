@@ -1,7 +1,7 @@
 class_name Bullet
 extends Area2D
 
-var velocity: float = 600
+var velocity: float = 1500
 
 var player: int
 
