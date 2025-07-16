@@ -160,7 +160,7 @@ func get_head_diff() -> Vector2:
 	return $Head.global_position - $Segments.points[$Segments.get_point_count() - 1]
 
 func handle_input(delta):
-	if not is_alive or not is_player:
+	if not is_alive or not is_player or Game.dev_console_active:
 		return
 	
 	var prev = move_vector

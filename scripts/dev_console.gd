@@ -37,17 +37,18 @@ func register_command(text):
 		4:
 			call(cmds[cmd], text_split[1], text_split[2], text_split[3])
 			
-func set_var(classname, var_name, value):
-	if(classname == "game" or classname == "Game"):
+func set_var(nodename, var_name, value):
+	if(nodename == "game" or nodename == "Game"):
 		Game.set(var_name,value)
 	else:
-		get_node(classname).set(var_name,value)
+		get_node("/root").find_child(nodename,true,false).set(var_name,value)
+		#get_node(nodename).set(var_name,value)
 	
-func call_func(script, funcname, extra_param = null):
-	if(script == "game" or script == "Game"):
+func call_func(nodename, funcname, extra_param = null):
+	if(nodename == "game" or nodename == "Game"):
 		Game.call(funcname)
 	else:
 		if(extra_param == null):
-			get_node(script).call(funcname)
+			get_node("/root").find_child(nodename,true,false).call(funcname)
 		else:
-			get_node(script).call(funcname,extra_param)
+			get_node("/root").find_child(nodename,true,false).call(funcname,extra_param)

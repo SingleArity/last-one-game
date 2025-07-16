@@ -21,6 +21,7 @@ var lvl_index = 0
 
 var last_killer = null
 
+var dev_console_active = false
 
 func _ready() -> void:
 	score_p1 = 0
