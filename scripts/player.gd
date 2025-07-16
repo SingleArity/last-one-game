@@ -163,7 +163,6 @@ func handle_input(delta):
 	if not is_alive or not is_player:
 		return
 	
-	var prev = move_vector
 	var h = Input.get_axis(input_left,input_right)
 	var v = Input.get_axis(input_up,input_down)
 	move_vector = Vector2(h,v)
