@@ -42,6 +42,8 @@ var splosion_scene = preload("res://splosion.tscn")
 
 var paused = false
 
+var max_rotation = deg_to_rad(360)
+
 func _ready():
 	Game.snakes.append(self)
 	
@@ -109,20 +111,20 @@ func initialize(
 	$Head/ThingThatShoots.bullets = ammo_current
 	ui_player.update_bullets(ammo_current)
 
-func _process(_d):
+func _process(d):
 	
 	if(paused):
 		#player paused, no takey input
 		return
 	if(stunned):
-		stunned_time -= _d
+		stunned_time -= d
 		#un-stun
 		if(stunned_time <= 0.0):
 			stunned_time = 0.0
 			stunned = false
 			$Head/Sprite.animation = "idle_%s" % player_id
 		return
-	handle_input()
+	handle_input(d)
 
 func _physics_process(delta: float) -> void:
 
@@ -157,12 +159,25 @@ func get_head_diff() -> Vector2:
 		return Vector2.ZERO
 	return $Head.global_position - $Segments.points[$Segments.get_point_count() - 1]
 
-func handle_input():
+func handle_input(delta):
 	if not is_alive or not is_player:
 		return
 	
+	var prev = move_vector
+	var h = Input.get_axis(input_left,input_right)
+	var v = Input.get_axis(input_up,input_down)
+	var target = Vector2(h,v)
+	if (target.length() != 0):
+		var diff = angle_difference(target.angle(), move_vector.angle())
+		var limit = max_rotation*delta
+		var clamped = clamp(-diff, -limit, limit)
+		move_vector = move_vector.rotated(clamped)
+		if (diff != 0):
+			print('======')
+			print(rad_to_deg(limit))
+			print(rad_to_deg(diff))
+			print(rad_to_deg(clamped))
 	
-	move_vector = Vector2(Input.get_axis(input_left,input_right),Input.get_axis(input_up,input_down))
 	if move_vector.length() > 0:
 		$Head.rotation = move_vector.angle()
 	
