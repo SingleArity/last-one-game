@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://cpdvum1k4ownv"]
+[gd_scene load_steps=7 format=3 uid="uid://cpdvum1k4ownv"]
 
 [ext_resource type="Script" uid="uid://pus8qg7fftii" path="res://scripts/level.gd" id="1_4dbmb"]
 [ext_resource type="PackedScene" uid="uid://dergidtflf3y2" path="res://scenes/fluidsnake.tscn" id="2_4dbmb"]
 [ext_resource type="PackedScene" uid="uid://bh77ioonktc7q" path="res://scenes/enemy.tscn" id="3_655on"]
+[ext_resource type="Texture2D" uid="uid://rkfypq42mtu1" path="res://icon.svg" id="4_qc31d"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4msxo"]
 size = Vector2(720, 64)
@@ -35,6 +36,10 @@ position = Vector2(360, 752)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WallBottom"]
 shape = SubResource("RectangleShape2D_4msxo")
 
+[node name="Sprite2D" type="Sprite2D" parent="WallBottom"]
+texture = ExtResource("4_qc31d")
+offset = Vector2(0, -96)
+
 [node name="WallLeft" type="StaticBody2D" parent="."]
 position = Vector2(-32, 360)
 
@@ -46,6 +51,10 @@ position = Vector2(752, 360)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WallRight"]
 shape = SubResource("RectangleShape2D_5fb3c")
+
+[node name="Sprite2D" type="Sprite2D" parent="WallRight"]
+texture = ExtResource("4_qc31d")
+offset = Vector2(-96, 0)
 
 [node name="P1_Spawn" type="Node2D" parent="."]
 position = Vector2(140, 360)

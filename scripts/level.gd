@@ -15,6 +15,8 @@ var game_over = false
 var level_complete
 
 func _ready():
+	scale_level(Game.resolution, Game.aspect_ratio)
+	
 	level_complete = false
 	game.current_level = self
 	
@@ -97,4 +99,34 @@ func update_enemies(new_total):
 		level_complete = true
 		game.ui_game.set_level_complete(true)
 		game.set_players_enabled(false)
-		
+
+#this whole function assumes a screen/viewport that is wider than it is tall
+func scale_level(resolution, aspect):
+	var x_stretch = float(resolution.x) / 720.0
+	var y_stretch = float(resolution.y) / 720.0
+	
+	var viewport_size = get_tree().root.size
+	var stretch_ratio = float(viewport_size.x) / float(viewport_size.y)
+	print(stretch_ratio)
+
+	#Position and Scale Walls
+
+	$WallRight.position.x = (720.0 * stretch_ratio) + 32.0
+	$WallRight/CollisionShape2D.shape.size.y = resolution.y
+	
+	$WallBottom.position.x = (360.0 * stretch_ratio)
+	$WallBottom/CollisionShape2D.shape.size.x = resolution.x
+
+	$WallTop.position.x = (360.0 * stretch_ratio)
+	$WallTop/CollisionShape2D.shape.size.x = resolution.x
+
+	#Position Objects
+	$P1_Spawn.position.x = ($P1_Spawn.position.x * stretch_ratio)
+	$P2_Spawn.position.x = ($P2_Spawn.position.x * stretch_ratio)
+
+	for en in get_tree().get_nodes_in_group("enemies"):
+		en.position.x = (en.position.x * stretch_ratio)
+	
+	#UI
+	Game.ui_game.size.x = 720.0 * stretch_ratio
+	Game.ui_game.get_node("VBoxContainer").size.x = 720.0 * stretch_ratio

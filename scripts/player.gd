@@ -39,6 +39,7 @@ var stunned_time: float = 0.0
 
 var bullet_scene = preload("res://bullet.tscn")
 var splosion_scene = preload("res://splosion.tscn")
+var explosion_scene = preload("res://scenes/explosion.tscn")
 
 var paused = false
 
@@ -206,9 +207,11 @@ func explode():
 	expl.is_bomb = true
 	expl.scale_up(5)
 	expl.velocity = 0.0
+	expl.get_node("Sprite2D").visible = false
 	var splosion = splosion_scene.instantiate()
 	splosion.global_position = $Head.global_position
 	splosion.add_child(expl)
+	splosion.get_node("AnimatedSprite2D").play("default")
 	get_parent().add_child(splosion)
 	
 func got_exploded():
