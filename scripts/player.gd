@@ -155,6 +155,7 @@ func _physics_process(delta: float) -> void:
 	while $Segments.get_point_count() and $Segments.get_point_count() > max_segments:
 		$Segments.remove_point(0)
 	
+	# smooth tail shrinkage
 	if $Segments.get_point_count() >= 2:
 		var tail_tip: Vector2 = $Segments.points[0]
 		var tail_tip_seg: Vector2 = $Segments.points[1] - tail_tip
