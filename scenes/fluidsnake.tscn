@@ -72,7 +72,6 @@ animations = [{
 script = ExtResource("1_ucrwi")
 
 [node name="Segments" type="Line2D" parent="."]
-width = 20.0
 width_curve = SubResource("Curve_jpd0e")
 
 [node name="Head" type="CharacterBody2D" parent="." groups=["snakes"]]

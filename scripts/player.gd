@@ -10,7 +10,7 @@ var length: int:
 var segment_length = 10;
 var shrink_per_sec = 30;
 
-var move_vector := Vector2.RIGHT
+var move_vector := Vector2.ZERO
 var move_speed = 400.0
 var last_pos := Vector2.ZERO
 
@@ -95,11 +95,7 @@ func initialize(
 	input_shoot = controls.get("shoot", "")
 	input_bomb = controls.get("bomb", "")
 	
-	var initial_segments = length / segment_length
-	var point = Vector2.LEFT * length
-	for i in range(initial_segments):
-		point.x += segment_length
-		$Segments.add_point(point)
+	$Segments.add_point($Head.global_position)
 	
 	ammo_current = ammo_total
 	
@@ -131,6 +127,8 @@ func _physics_process(delta: float) -> void:
 
 	if(paused):
 		return
+	
+	var old_pos = $Head.global_position
 	if is_alive and is_player:
 		$Head.velocity = move_vector * move_speed
 		$Head.move_and_slide()
@@ -142,7 +140,9 @@ func _physics_process(delta: float) -> void:
 		return
 	
 	var head_diff := get_head_diff()
-	while head_diff.length() >= segment_length:
+	var moved = not head_pos.is_equal_approx(old_pos)
+	while moved and head_diff.length() >= segment_length:
+		print('moved')
 		var head_segment = $Segments.points[$Segments.get_point_count() - 1]
 		var new_pos = head_segment + head_diff.limit_length(segment_length)
 		$Segments.add_point(new_pos)
