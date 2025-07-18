@@ -128,19 +128,20 @@ func _physics_process(delta: float) -> void:
 	if(paused):
 		return
 	
-	var old_pos = $Head.global_position
+	var old_pos: Vector2 = $Head.global_position
 	if is_alive and is_player:
 		$Head.velocity = move_vector * move_speed
 		$Head.move_and_slide()
 	
-	var head_pos = $Head.global_position
+	var head_pos: Vector2 = $Head.global_position
 	
 	if $Segments.get_point_count() <= 0 and has_bomb:
 		explode()
 		return
 	
 	var head_diff := get_head_diff()
-	var moved = not head_pos.is_equal_approx(old_pos)
+	var distance_moved := head_pos - old_pos
+	var moved = not distance_moved.is_equal_approx(Vector2.ZERO)
 	while moved and head_diff.length() >= segment_length:
 		print('moved')
 		var head_segment = $Segments.points[$Segments.get_point_count() - 1]
@@ -149,10 +150,21 @@ func _physics_process(delta: float) -> void:
 		head_diff = get_head_diff()
 	
 	lengthf -= shrink_per_sec * delta
-	var max_segments = length / segment_length;
+	var max_segments = ceil(lengthf / segment_length);
+	
 	while $Segments.get_point_count() and $Segments.get_point_count() > max_segments:
 		$Segments.remove_point(0)
 	
+	if $Segments.get_point_count() >= 2:
+		var tail_tip: Vector2 = $Segments.points[0]
+		var tail_tip_seg: Vector2 = $Segments.points[1] - tail_tip
+		var tail_tip_len = tail_tip_seg.length()
+		var visible_length = $Segments.get_point_count() * segment_length - (segment_length - tail_tip_len)
+		if visible_length > lengthf:
+			var to_subtract: float = tail_tip_len - fmod(lengthf, segment_length)
+			$Segments.points[0] = tail_tip.move_toward($Segments.points[1], to_subtract)
+		
+		
 	#handle_tail_collision()
 
 func get_head_diff() -> Vector2:
