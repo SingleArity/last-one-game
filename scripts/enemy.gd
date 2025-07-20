@@ -17,6 +17,18 @@ enum EnemyState{
 var target
 var state: EnemyState
 
+var wait_low_d := 1.0
+var wait_high_d := 6.0
+var wait_low_idle := 1.0
+var wait_high_idle := 3.0
+var wait_low_move := 3.0
+var wait_high_move := 6.0
+var wait_low_target := 2.0
+var wait_high_target := 4.0
+var wait_mult := 1.0
+
+var is_last_one := false
+
 func _ready():
 	change_state(EnemyState.IDLE)
 	
@@ -30,23 +42,28 @@ func _physics_process(delta: float) -> void:
 		EnemyState.MOVE:
 			velocity = move_direction * move_speed
 			move_and_slide()
-	
+			
+			if is_last_one and get_slide_collision_count() > 0:
+				print('picking a new direction')
+				change_state(EnemyState.MOVE)
+
 func change_state(new_state):
-	var wait_low = 1.0
-	var wait_high = 1.0
+	var wait_low = wait_low_d
+	var wait_high = wait_high_d
 	match new_state:
 		EnemyState.IDLE:
-			wait_low = 1.0
-			wait_high = 3.0
+			wait_high = wait_high_idle
 			move_direction = Vector2.ZERO
 		EnemyState.MOVE:
-			wait_low = 3.0
-			wait_high = 6.0
-			move_direction = Vector2(randf_range(-1.0,1.0),randf_range(-1.0,1.0))
+			wait_low = wait_low_move
+			wait_high = wait_high_move
+			move_direction = Vector2.RIGHT.rotated(randf_range(-PI, PI))
 		_:
-			wait_low = 2.0
-			wait_high = 4.0
+			wait_low = wait_low_target
+			wait_high = wait_high_target
 			move_direction = Vector2.ZERO
+	wait_low *= wait_mult
+	wait_high *= wait_mult
 	state_timer.wait_time = randf_range(wait_low,wait_high)
 	state_timer.start()
 	state = new_state
@@ -59,15 +76,28 @@ func on_enemy_shot(killer_player):
 	Game.current_level.update_enemies(Game.current_level.enemies_remaining)
 	queue_free()
 
+	if Game.current_level.enemies_remaining == 1:
+		for enemy in get_tree().get_nodes_in_group("enemies"):
+			if enemy != self:
+				enemy.last_one()
+
 func _on_timer_timeout() -> void:
 	match state:
 		EnemyState.IDLE:
 			change_state(EnemyState.MOVE)
 			print("change to move!")
 		EnemyState.MOVE:
-			change_state(EnemyState.IDLE)
-			print("change to idle")
+			if is_last_one:
+				change_state(EnemyState.MOVE)
+				print("keep moving!")
+			else:
+				change_state(EnemyState.IDLE)
+				print("change to idle")
 
 func last_one():
 	print("last one!")
 	$AnimatedSprite2D.material = last_one_mat
+	move_speed *= 3
+	wait_mult = 0.3
+	is_last_one = true
+	
