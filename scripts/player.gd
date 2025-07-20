@@ -143,7 +143,6 @@ func _physics_process(delta: float) -> void:
 	var distance_moved := head_pos - old_pos
 	var moved = not distance_moved.is_equal_approx(Vector2.ZERO)
 	while moved and head_diff.length() >= segment_length:
-		print('moved')
 		var head_segment = $Segments.points[$Segments.get_point_count() - 1]
 		var new_pos = head_segment + head_diff.limit_length(segment_length)
 		$Segments.add_point(new_pos)
@@ -164,7 +163,6 @@ func _physics_process(delta: float) -> void:
 		if visible_length > lengthf:
 			var to_subtract: float = tail_tip_len - fmod(lengthf, segment_length)
 			$Segments.points[0] = tail_tip.move_toward($Segments.points[1], to_subtract)
-		
 		
 	#handle_tail_collision()
 

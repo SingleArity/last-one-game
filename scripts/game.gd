@@ -50,11 +50,7 @@ func on_enemy_killed(killer_player):
 	ui_game.update_scores()
 
 func got_exploded(player):
-	if(player == 0):
-		score_p1 -= 1000
-	elif(player == 1):
-		score_p2 -= 1000
-	ui_game.update_scores()
+	pass
 
 func set_players_enabled(state):
 	for player in snakes:

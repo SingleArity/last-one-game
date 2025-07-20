@@ -2,27 +2,28 @@ NOTES
 
 ---
 
-- you still lose scores from being bombed I think, both players can be negative which is kinda funny
+SOLVED - you still lose scores from being bombed I think, both players can be negative which is kinda funny
 
-- if you win a lot, you get such a short fuse that you’re immediately disabled. this seems actually kinda cool though, like an even stronger handicap
-- after several rounds, both players have too short a fuse and it’s just a boring delay before game start
+REMOVED - if you win a lot, you get such a short fuse that you’re immediately disabled. this seems actually kinda cool though, like an even stronger handicap
+SOLVED - after several rounds, both players have too short a fuse and it’s just a boring delay before game start
   -- fuse budget distributed based on score?
-
 STATUS: implemented simple balancing (winner of round gets shorter fuse, w/ minimum fuse length, loser gets a longer one, w/ maximum)
 	could revisit if we want to try the "scored-based" approach
 
-- if players are right next to each other at the start, both are disabled by one having too short a fuse
-STATUS: maybe already solved by our fuse balancing?
+SOLVED - if players are right next to each other at the start, both are disabled by one having too short a fuse
+STATUS: solved by our fuse balancing
 
 - bomb and bullets need sprites
 
+- fuse end needs a particle effect
+
 - player sprites face wrong way/don't have a clear "forward" direction
 
-- tank controls? for keyboard
-
-- initial fuse direction seems weird, how should it start? zigzag? opposing lines?
+DONE - initial fuse direction seems weird, how should it start? zigzag? opposing lines?
 
 - some kind of short “get ready” state before level starts
+
+- last guy glow effect
 
 
 Mark To Do
@@ -33,4 +34,4 @@ Title Screen, pre-round "get ready" state
 Aaron To Do
 ---
 Initial Fuse/Tail Setup
-
+Last guy glow effect
