@@ -48,6 +48,10 @@ func on_enemy_killed(killer_player):
 		score_p2 += points
 	last_killer = killer_player
 	ui_game.update_scores()
+	
+	if current_level.enemies_remaining == 1:
+		get_tree().get_nodes_in_group("enemies").get(0).last_one()
+		
 
 func got_exploded(player):
 	pass

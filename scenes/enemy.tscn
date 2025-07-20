@@ -26,6 +26,7 @@ move_speed = 100.0
 shape = SubResource("CircleShape2D_md0e3")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+clip_children = 2
 sprite_frames = SubResource("SpriteFrames_4ra3w")
 
 [node name="Timer" type="Timer" parent="."]

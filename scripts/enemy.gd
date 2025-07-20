@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+const last_one_mat = preload("res://sprites/fx/special_mat.tres")
+
 @onready var state_timer = $Timer
 
 @export var move_speed: float
@@ -65,3 +67,7 @@ func _on_timer_timeout() -> void:
 		EnemyState.MOVE:
 			change_state(EnemyState.IDLE)
 			print("change to idle")
+
+func last_one():
+	print("last one!")
+	$AnimatedSprite2D.material = last_one_mat
