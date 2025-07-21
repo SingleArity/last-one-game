@@ -1,0 +1,54 @@
+[gd_scene load_steps=8 format=3 uid="uid://c0pu8fjmhebsm"]
+
+[ext_resource type="Texture2D" uid="uid://cmkyg43htaqpg" path="res://sprites/fx/new_atlas_texture.tres" id="1_yq4g1"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_yq4g1"]
+particles_animation = true
+particles_anim_h_frames = 16
+particles_anim_v_frames = 16
+particles_anim_loop = false
+
+[sub_resource type="Curve" id="Curve_3d31u"]
+_data = [Vector2(0.502778, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_gawoq"]
+curve = SubResource("Curve_3d31u")
+
+[sub_resource type="Curve" id="Curve_yq4g1"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.0364583, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_iq0wk"]
+curve = SubResource("Curve_yq4g1")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_mseeg"]
+particle_flag_disable_z = true
+emission_shape = 2
+emission_sphere_radius = 8.0
+angle_min = -317.9
+angle_max = 298.1
+spread = 180.0
+initial_velocity_min = 10.0
+initial_velocity_max = 40.0
+gravity = Vector3(0, 0, 0)
+damping_min = 12.0
+damping_max = 13.0
+scale_curve = SubResource("CurveTexture_gawoq")
+anim_offset_max = 1.0
+turbulence_noise_strength = 0.3
+turbulence_noise_scale = 1.0
+turbulence_influence_over_life = SubResource("CurveTexture_iq0wk")
+
+[node name="Confetti" type="GPUParticles2D"]
+material = SubResource("CanvasItemMaterial_yq4g1")
+emitting = false
+amount = 120
+texture = ExtResource("1_yq4g1")
+lifetime = 20.0
+one_shot = true
+explosiveness = 1.0
+randomness = 1.0
+visibility_rect = Rect2(-1000, -1000, 1000, 1000)
+draw_order = 0
+process_material = SubResource("ParticleProcessMaterial_mseeg")
