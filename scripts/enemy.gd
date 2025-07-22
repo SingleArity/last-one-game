@@ -81,11 +81,11 @@ func on_enemy_shot(killer_player):
 		for enemy in get_tree().get_nodes_in_group("enemies"):
 			if enemy != self:
 				enemy.last_one()
-	elif Game.current_level.enemies_remaining == 0:
-		var confetti: GPUParticles2D = confetti_scene.instantiate()
-		confetti.emitting = true
-		confetti.global_position = global_position
-		get_parent().add_child(confetti)
+	#elif Game.current_level.enemies_remaining == 0:
+		#var confetti: GPUParticles2D = confetti_scene.instantiate()
+		#confetti.emitting = true
+		#confetti.global_position = global_position
+		#get_parent().add_child(confetti)
 
 func _on_timer_timeout() -> void:
 	match state:
