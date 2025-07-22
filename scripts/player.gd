@@ -163,8 +163,8 @@ func _physics_process(delta: float) -> void:
 		if visible_length > lengthf:
 			var to_subtract: float = tail_tip_len - fmod(lengthf, segment_length)
 			$Segments.points[0] = tail_tip.move_toward($Segments.points[1], to_subtract)
-		
-	#handle_tail_collision()
+	
+	$Fuse.global_position = $Segments.points[0] if $Segments.get_point_count() else $Head.global_position
 
 func get_head_diff() -> Vector2:
 	if $Segments.get_point_count() <= 0:
@@ -210,6 +210,7 @@ func drop_bomb():
 	new_player.ammo_current = ammo_current
 	new_player.init_bullets_ui()
 	Game.snakes[player_id] = new_player
+	$Fuse.emitting = false
 
 func explode():
 	has_bomb = false
@@ -224,6 +225,7 @@ func explode():
 	splosion.add_child(expl)
 	splosion.get_node("AnimatedSprite2D").play("default")
 	get_parent().add_child(splosion)
+	$Fuse.emitting = false
 	
 func got_exploded():
 	if is_alive && is_player:
@@ -234,6 +236,7 @@ func got_exploded():
 		$Head/Sprite.play("stun_%s" % player_id)
 	if(!is_player):
 		queue_free()
+		
 
 func handle_tail_collision(pos: Vector2, radius: float) -> bool:
 	var rsq := radius * radius

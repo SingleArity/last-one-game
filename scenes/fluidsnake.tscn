@@ -1,12 +1,13 @@
-[gd_scene load_steps=12 format=3 uid="uid://dergidtflf3y2"]
+[gd_scene load_steps=13 format=3 uid="uid://dergidtflf3y2"]
 
 [ext_resource type="Script" uid="uid://57iq6ym0hl8" path="res://scripts/player.gd" id="1_ucrwi"]
+[ext_resource type="PackedScene" uid="uid://bxvgjhfqqij2f" path="res://sprites/fx/fuse.tscn" id="2_cb2oc"]
 [ext_resource type="Texture2D" uid="uid://dkcy8m4gndv2h" path="res://sprites/player1_test.png" id="2_jpd0e"]
 [ext_resource type="PackedScene" uid="uid://b5gc7oh375smn" path="res://thing_that_shoots.tscn" id="3_jpd0e"]
 [ext_resource type="Texture2D" uid="uid://dc7wgim5ic2re" path="res://sprites/player2_test.png" id="3_r01t0"]
 
 [sub_resource type="Curve" id="Curve_jpd0e"]
-_data = [Vector2(0, 0), 0.0, 4.23628, 0, 0, Vector2(0.252446, 0.694472), 1.30183, 1.30183, 0, 0, Vector2(1, 0.989731), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 0.0934647), 0.0, 16.6743, 0, 0, Vector2(0.0711207, 0.501643), 1.31802, -0.0025548, 0, 1, Vector2(1, 0.49927), 0.0, 0.0, 0, 0]
 point_count = 3
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_76ynw"]
@@ -70,6 +71,8 @@ animations = [{
 
 [node name="Fluidsnake" type="Node"]
 script = ExtResource("1_ucrwi")
+
+[node name="Fuse" parent="." instance=ExtResource("2_cb2oc")]
 
 [node name="Segments" type="Line2D" parent="."]
 width_curve = SubResource("Curve_jpd0e")
