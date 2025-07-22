@@ -19,31 +19,31 @@ script = ExtResource("1_0jtq1")
 [node name="P2" parent="." instance=ExtResource("2_xmh5c")]
 
 [node name="Enemy" parent="." instance=ExtResource("3_g83ud")]
-position = Vector2(603, 185)
+position = Vector2(547, 190)
 
 [node name="Enemy3" parent="." instance=ExtResource("3_g83ud")]
 position = Vector2(356, 469)
 
 [node name="Enemy4" parent="." instance=ExtResource("3_g83ud")]
-position = Vector2(347, 287)
+position = Vector2(358, 289)
 
 [node name="Enemy2" parent="." instance=ExtResource("3_g83ud")]
-position = Vector2(155, 609)
+position = Vector2(186, 561)
 
 [node name="WallTop" type="StaticBody2D" parent="."]
-position = Vector2(360, -32)
+position = Vector2(360, 48)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WallTop"]
 shape = SubResource("RectangleShape2D_4msxo")
 
 [node name="WallBottom" type="StaticBody2D" parent="."]
-position = Vector2(360, 752)
+position = Vector2(360, 668)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WallBottom"]
 shape = SubResource("RectangleShape2D_4msxo")
 
 [node name="WallLeft" type="StaticBody2D" parent="."]
-position = Vector2(-32, 360)
+position = Vector2(63, 360)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WallLeft"]
 shape = SubResource("RectangleShape2D_5fb3c")
@@ -55,9 +55,9 @@ position = Vector2(752, 360)
 shape = SubResource("RectangleShape2D_5fb3c")
 
 [node name="P1_Spawn" type="Node2D" parent="."]
-position = Vector2(134, 162)
+position = Vector2(140, 136)
 
 [node name="P2_Spawn" type="Node2D" parent="."]
-position = Vector2(583, 639)
+position = Vector2(578, 598)
 
 [node name="LevelEnvironment" parent="." instance=ExtResource("4_xmh5c")]
