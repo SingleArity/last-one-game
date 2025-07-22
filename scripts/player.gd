@@ -210,7 +210,7 @@ func drop_bomb():
 	new_player.ammo_current = ammo_current
 	new_player.init_bullets_ui()
 	Game.snakes[player_id] = new_player
-	$Fuse.emitting = false
+	new_player.get_node('Fuse').emitting = false
 
 func explode():
 	has_bomb = false
