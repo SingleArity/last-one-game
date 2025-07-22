@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Last One Game Jam"
-run/main_scene="uid://cpdvum1k4ownv"
+run/main_scene="uid://vx1mo1b3g86k"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -98,3 +98,4 @@ dev_console={
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
+environment/defaults/default_clear_color=Color(0, 0, 0, 1)

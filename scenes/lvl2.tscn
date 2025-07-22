@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://swpk3vvx2yym"]
+[gd_scene load_steps=7 format=3 uid="uid://swpk3vvx2yym"]
 
 [ext_resource type="Script" uid="uid://pus8qg7fftii" path="res://scripts/level.gd" id="1_o7ycc"]
-[ext_resource type="PackedScene" uid="uid://dkq0m4g2afoft" path="res://scenes/fluidsnake.tscn" id="2_jaojv"]
+[ext_resource type="PackedScene" uid="uid://dergidtflf3y2" path="res://scenes/fluidsnake.tscn" id="2_jaojv"]
 [ext_resource type="PackedScene" uid="uid://bh77ioonktc7q" path="res://scenes/enemy.tscn" id="3_3n54i"]
+[ext_resource type="PackedScene" uid="uid://dspbhh7kq2roa" path="res://scenes/level_environment.tscn" id="4_jaojv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4msxo"]
 size = Vector2(720, 64)
@@ -70,3 +71,5 @@ position = Vector2(358, 77)
 
 [node name="P2_Spawn" type="Node2D" parent="."]
 position = Vector2(362, 649)
+
+[node name="LevelEnvironment" parent="." instance=ExtResource("4_jaojv")]

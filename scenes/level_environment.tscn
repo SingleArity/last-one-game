@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://dspbhh7kq2roa"]
+
+[ext_resource type="Texture2D" uid="uid://dspqmht4pnoe6" path="res://sprites/walls_test1_dropshadow_green.png" id="1_1lgsu"]
+
+[node name="LevelEnvironment" type="Node2D"]
+
+[node name="Walls" type="NinePatchRect" parent="."]
+z_index = 2
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 700.0
+offset_bottom = 700.0
+texture = ExtResource("1_1lgsu")
+patch_margin_left = 100
+patch_margin_top = 100
+patch_margin_right = 100
+patch_margin_bottom = 100

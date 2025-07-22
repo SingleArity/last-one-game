@@ -111,7 +111,7 @@ func scale_level(resolution, aspect):
 
 	#Position and Scale Walls
 
-	$WallRight.position.x = (720.0 * stretch_ratio) + 32.0
+	$WallRight.position.x = (720.0 * stretch_ratio) - 64.0 #32.0
 	$WallRight/CollisionShape2D.shape.size.y = resolution.y
 	
 	$WallBottom.position.x = (360.0 * stretch_ratio)
@@ -120,6 +120,9 @@ func scale_level(resolution, aspect):
 	$WallTop.position.x = (360.0 * stretch_ratio)
 	$WallTop/CollisionShape2D.shape.size.x = resolution.x
 
+	$LevelEnvironment/Walls.size.x = 720.0 * stretch_ratio - 40
+	
+	
 	#Position Objects
 	$P1_Spawn.position.x = ($P1_Spawn.position.x * stretch_ratio)
 	$P2_Spawn.position.x = ($P2_Spawn.position.x * stretch_ratio)

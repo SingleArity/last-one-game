@@ -1,7 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://b5tuhlw3janfb"]
+[gd_scene load_steps=6 format=3 uid="uid://b5tuhlw3janfb"]
 
 [ext_resource type="FontFile" uid="uid://n5pl4diup1ls" path="res://fonts/8-bit Arcade In.ttf" id="1_uwrxv"]
 [ext_resource type="Script" uid="uid://bbgo46kml5agt" path="res://scripts/ui_game.gd" id="1_yqjtg"]
+
+[sub_resource type="Environment" id="Environment_yqjtg"]
+background_mode = 1
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_lnu2h"]
+
+[sub_resource type="Compositor" id="Compositor_lbhrr"]
 
 [node name="GameUI" type="Control"]
 layout_mode = 3
@@ -30,3 +37,8 @@ bbcode_enabled = true
 text = "
 "
 horizontal_alignment = 1
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_yqjtg")
+camera_attributes = SubResource("CameraAttributesPractical_lnu2h")
+compositor = SubResource("Compositor_lbhrr")
