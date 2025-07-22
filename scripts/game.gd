@@ -15,7 +15,7 @@ var aspect_ratio
 
 var current_level
 
-var levels = ["lvl0","lvl1","lvl2","lvl3"]
+var levels = ["lvl0_test","lvl0","lvl1","lvl2","lvl3"]
 
 var lvl_index = 0
 

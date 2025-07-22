@@ -1,9 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://cpdvum1k4ownv"]
+[gd_scene load_steps=7 format=3 uid="uid://vx1mo1b3g86k"]
 
-[ext_resource type="Script" uid="uid://pus8qg7fftii" path="res://scripts/level.gd" id="1_4dbmb"]
-[ext_resource type="PackedScene" uid="uid://dergidtflf3y2" path="res://scenes/fluidsnake.tscn" id="2_4dbmb"]
-[ext_resource type="PackedScene" uid="uid://bh77ioonktc7q" path="res://scenes/enemy.tscn" id="3_655on"]
-[ext_resource type="Texture2D" uid="uid://rkfypq42mtu1" path="res://icon.svg" id="4_qc31d"]
+[ext_resource type="Script" uid="uid://pus8qg7fftii" path="res://scripts/level.gd" id="1_gwlwc"]
+[ext_resource type="PackedScene" uid="uid://dergidtflf3y2" path="res://scenes/fluidsnake.tscn" id="2_tdc87"]
+[ext_resource type="PackedScene" uid="uid://bh77ioonktc7q" path="res://scenes/enemy.tscn" id="3_c10a3"]
+[ext_resource type="Texture2D" uid="uid://rkfypq42mtu1" path="res://icon.svg" id="4_y0mwx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4msxo"]
 size = Vector2(720, 64)
@@ -12,16 +12,16 @@ size = Vector2(720, 64)
 size = Vector2(64, 720)
 
 [node name="Level0" type="Node2D"]
-script = ExtResource("1_4dbmb")
+script = ExtResource("1_gwlwc")
 
-[node name="P1" parent="." instance=ExtResource("2_4dbmb")]
+[node name="P1" parent="." instance=ExtResource("2_tdc87")]
 
-[node name="P2" parent="." instance=ExtResource("2_4dbmb")]
+[node name="P2" parent="." instance=ExtResource("2_tdc87")]
 
-[node name="Enemy" parent="." instance=ExtResource("3_655on")]
+[node name="Enemy" parent="." instance=ExtResource("3_c10a3")]
 position = Vector2(361, 209)
 
-[node name="Enemy2" parent="." instance=ExtResource("3_655on")]
+[node name="Enemy2" parent="." instance=ExtResource("3_c10a3")]
 position = Vector2(366, 499)
 
 [node name="WallTop" type="StaticBody2D" parent="."]
@@ -38,7 +38,7 @@ shape = SubResource("RectangleShape2D_4msxo")
 
 [node name="visualmarker" type="Sprite2D" parent="WallBottom"]
 visible = false
-texture = ExtResource("4_qc31d")
+texture = ExtResource("4_y0mwx")
 offset = Vector2(0, -96)
 
 [node name="WallLeft" type="StaticBody2D" parent="."]
@@ -55,7 +55,7 @@ shape = SubResource("RectangleShape2D_5fb3c")
 
 [node name="visualmarker" type="Sprite2D" parent="WallRight"]
 visible = false
-texture = ExtResource("4_qc31d")
+texture = ExtResource("4_y0mwx")
 offset = Vector2(-96, 0)
 
 [node name="P1_Spawn" type="Node2D" parent="."]
