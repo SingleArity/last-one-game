@@ -60,14 +60,17 @@ func set_controls(player_id):
 	input_bomb = controls.get("bomb", "")
 
 func init_bullets_ui():
-	ui_player = player_ui_scene.instantiate()
+	#ui_player = player_ui_scene.instantiate()
+	ui_player = $Head/UI_Player
 	ui_player.num_bullets = ammo_current
 	ui_player.position = Vector2(0,0)
-	$Head.add_child(ui_player)
+	#$Head.add_child(ui_player)
 	$Head/ThingThatShoots.player_ui = ui_player
 	$Head/ThingThatShoots.max_bullets = ammo_total
 	$Head/ThingThatShoots.bullets = ammo_current
+	print("init bullet ui, ammo ", ammo_current)
 	ui_player.update_bullets(ammo_current)
+	print("post init")
 	
 func initialize(
 	name: String,
@@ -114,6 +117,7 @@ func _process(d):
 		#player paused, no takey input
 		return
 	if(stunned):
+		move_vector = Vector2(0,0)
 		stunned_time -= d
 		#un-stun
 		if(stunned_time <= 0.0):
@@ -208,6 +212,7 @@ func drop_bomb():
 	get_parent().add_child(new_player)
 	new_player.set_controls(player_id)
 	new_player.ammo_current = ammo_current
+	print("AMMO ", ammo_current)
 	new_player.init_bullets_ui()
 	Game.snakes[player_id] = new_player
 	new_player.get_node('Fuse').emitting = false
@@ -217,7 +222,7 @@ func explode():
 	#is_alive = false
 	var expl = bullet_scene.instantiate()
 	expl.is_bomb = true
-	expl.scale_up(5)
+	expl.scale_up(4)
 	expl.velocity = 0.0
 	expl.get_node("Sprite2D").visible = false
 	var splosion = splosion_scene.instantiate()

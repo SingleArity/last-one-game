@@ -923,6 +923,7 @@ sprite_frames = SubResource("SpriteFrames_wxgm1")
 animation = &"diamond"
 
 [node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
 autostart = true
 
 [connection signal="timeout" from="Timer" to="." method="queue_free" flags=3]

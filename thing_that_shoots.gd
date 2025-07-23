@@ -27,6 +27,7 @@ func shoot():
 	get_node('/root').add_child(bullet)
 	is_cooled = false
 	bullets -= 1
+	#Game.snakes[player].ammo_current -= 1
 	player_ui.update_bullets(bullets)
 	$Cooldown.start()
 	$Reload.start()

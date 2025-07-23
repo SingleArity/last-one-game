@@ -4,7 +4,9 @@ extends Control
 @export var bullet_scene: PackedScene
 
 func _ready() -> void:
-	arrange_bullets(num_bullets)
+	print("player_ui ready ", get_node("../..").name)
+	if($Bullets.get_child_count() == 0):
+		arrange_bullets(num_bullets)
 	
 func arrange_bullets(num):
 	var angle_diff = (2*PI) / num
@@ -21,9 +23,9 @@ func arrange_bullets(num):
 		$Bullets.add_child(new_bullet)
 		
 func update_bullets(ammo_amt):
+	print("update bullets amt ", ammo_amt )
 	for i in range(num_bullets):
 		if(i < ammo_amt):
 			$Bullets.get_child(i).animation = "available"
 		else:
 			$Bullets.get_child(i).animation = "out"
-	

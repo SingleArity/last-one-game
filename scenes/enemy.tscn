@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://ccmluw0d1acva" path="res://scripts/enemy.gd" id="1_md0e3"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_md0e3"]
-radius = 16.0
+radius = 20.0
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_4ra3w"]
 animations = [{
