@@ -10,6 +10,7 @@ extends Control
 
 func _ready():
 	update_scores()
+	Game.set_state_ready()
 
 func update_scores():
 	score1.text = "P1 Score\n%s" % game.score_p1
@@ -19,6 +20,16 @@ func set_level_complete(state):
 	level_complete.visible = state
 	continue_text.visible = state
 
+func ready_up():
+	level_complete.visible = true
+	level_complete.text = "Press ANY Button\nto Ready Up!"
+
+func ready_end():
+	level_complete.text = "Press ANY Button\nto Ready Up!"
+	await get_tree().create_timer(1.0).timeout
+	level_complete.visible = false
+
+	
 func _process(delta):
 	if(Input.is_action_just_pressed("dev_console")):
 		if(!$DevConsole.active):

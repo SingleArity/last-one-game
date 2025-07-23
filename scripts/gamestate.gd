@@ -1,0 +1,6 @@
+enum {
+	TITLE,
+	READY_UP,
+	PLAYING,
+	LEVEL_END
+}

@@ -1,6 +1,11 @@
 class_name Player
 extends Node
 
+const GameState = preload("res://scripts/gamestate.gd")
+
+var readied_up = false
+var paused = false
+
 var lengthf: float = 500.0;
 var length: int:
 	get():
@@ -25,6 +30,7 @@ var input_left = 'ui_left'
 var input_right = 'ui_right'
 var input_shoot = 'p1_shoot'
 var input_bomb = 'p1_bomb' 
+var input_pause = 'p1_pause'
 
 var ammo_total = 5
 var ammo_current
@@ -41,7 +47,6 @@ var bullet_scene = preload("res://bullet.tscn")
 var splosion_scene = preload("res://splosion.tscn")
 var explosion_scene = preload("res://scenes/explosion.tscn")
 
-var paused = false
 
 var max_rotation = deg_to_rad(360)
 
@@ -49,16 +54,17 @@ func _ready():
 	Game.snakes.append(self)
 	
 func set_controls(player_id):
-	var controls = {"up": "ui_up", "down": "ui_down", "left": "ui_left", "right": "ui_right", 'shoot': 'p1_shoot', 'bomb': 'p1_bomb'}
+	var controls = {"up": "ui_up", "down": "ui_down", "left": "ui_left", "right": "ui_right", 'shoot': 'p1_shoot', 'bomb': 'p1_bomb', 'pause': 'p1_pause'}
 	if(player_id == 1):
-		controls = {"up": "p2_up", "down": "p2_down", "left": "p2_left", "right": "p2_right", 'shoot': 'p2_shoot', 'bomb': 'p2_bomb'}
+		controls = {"up": "p2_up", "down": "p2_down", "left": "p2_left", "right": "p2_right", 'shoot': 'p2_shoot', 'bomb': 'p2_bomb', 'pause': 'p2_pause'}
 	input_up = controls.get("up", "")
 	input_down = controls.get("down", "")
 	input_left = controls.get("left", "")
 	input_right = controls.get("right", "")
 	input_shoot = controls.get("shoot", "")
 	input_bomb = controls.get("bomb", "")
-
+	input_pause = controls.get("pause", "")
+	
 func init_bullets_ui():
 	#ui_player = player_ui_scene.instantiate()
 	ui_player = $Head/UI_Player
@@ -97,6 +103,7 @@ func initialize(
 	input_right = controls.get("right", "")
 	input_shoot = controls.get("shoot", "")
 	input_bomb = controls.get("bomb", "")
+	input_pause = controls.get("pause", "")
 	
 	$Segments.add_point($Head.global_position)
 	
@@ -114,7 +121,13 @@ func initialize(
 func _process(d):
 	
 	if(paused):
-		#player paused, no takey input
+		#handle 'readied up' status
+		if(Game.state == GameState.READY_UP):
+			if(is_any_player_action_just_pressed() and !readied_up):
+				ui_player.set_ready()
+				readied_up = true
+				Game.check_all_players_ready()
+		#player paused, no takey regular input
 		return
 	if(stunned):
 		move_vector = Vector2(0,0)
@@ -127,6 +140,12 @@ func _process(d):
 		return
 	handle_input(d)
 
+func is_any_player_action_just_pressed():
+	return (Input.is_action_just_pressed(input_up) || Input.is_action_just_pressed(input_down)
+	|| Input.is_action_just_pressed(input_left) || Input.is_action_just_pressed(input_right)
+	|| Input.is_action_just_pressed(input_shoot) || Input.is_action_just_pressed(input_bomb)
+	|| Input.is_action_just_pressed(input_pause))
+			
 func _physics_process(delta: float) -> void:
 
 	if(paused):
@@ -222,7 +241,7 @@ func explode():
 	#is_alive = false
 	var expl = bullet_scene.instantiate()
 	expl.is_bomb = true
-	expl.scale_up(4)
+	expl.scale_up(5)
 	expl.velocity = 0.0
 	expl.get_node("Sprite2D").visible = false
 	var splosion = splosion_scene.instantiate()

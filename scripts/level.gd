@@ -30,7 +30,7 @@ func _ready():
 			0,
 			Color.BLUE,
 			$P1_Spawn.global_position,
-			{"up": "ui_up", "down": "ui_down", "left": "ui_left", "right": "ui_right", 'shoot': 'p1_shoot', 'bomb': 'p1_bomb'},
+			{"up": "ui_up", "down": "ui_down", "left": "ui_left", "right": "ui_right", 'shoot': 'p1_shoot', 'bomb': 'p1_bomb', 'pause': 'p1_pause'},
 			Game.p1_length
 		)
 		
@@ -41,7 +41,7 @@ func _ready():
 			1,
 			Color.BLUE_VIOLET,
 			$P2_Spawn.global_position,
-			{"up": "p2_up", "down": "p2_down", "left": "p2_left", "right": "p2_right", 'shoot': 'p2_shoot', 'bomb': 'p2_bomb'},
+			{"up": "p2_up", "down": "p2_down", "left": "p2_left", "right": "p2_right", 'shoot': 'p2_shoot', 'bomb': 'p2_bomb', 'pause': 'p2_pause'},
 			Game.p2_length
 		)
 	
@@ -55,6 +55,11 @@ func _ready():
 			{"up": "", "down": "", "left": "", "right": ""},  # No controls - AI could go here,
 			500
 		)
+	
+	#pause players, will wait for ready up from each
+	for i in range(0,Game.snakes.size()):
+		Game.snakes[i].paused = true
+	Game.set_state_ready()
 
 func _process(delta):
 	if(level_complete):

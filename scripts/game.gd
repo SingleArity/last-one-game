@@ -1,5 +1,9 @@
 extends Node
 
+const GameState = preload("res://scripts/gamestate.gd")
+
+var state
+
 var score_p1
 var score_p2
 
@@ -26,13 +30,16 @@ var dev_console_active = false
 func _ready() -> void:
 	score_p1 = 0
 	score_p2 = 0
-	ui_game = preload("res://scenes/ui_game.tscn").instantiate()
+	ui_game = get_node("/root/UiGame")
 	get_parent().call_deferred("add_child", ui_game)
 	Signals.connect("enemy_killed", on_enemy_killed)
 	resolution = DisplayServer.screen_get_size()
 
 	aspect_ratio = float(resolution.x) / float(resolution.y)
 	print("aspect", aspect_ratio)
+	
+func process():
+	pass
 	
 func on_enemy_killed(killer_player):
 	print("enemy ded")
@@ -79,6 +86,24 @@ func next_level():
 	var scene = load(scene_file).instantiate()
 	get_parent().call_deferred("add_child", scene)
 	ui_game.set_level_complete(false)
+
+func set_state_ready():
+	state = GameState.READY_UP
+	ui_game.ready_up()
+
+func check_all_players_ready():
+	var all_ready = true
+	for player in snakes:
+		if(!player.readied_up):
+			#if we found a not ready player, return value is false
+			all_ready = false
+	if(all_ready):
+		start_level()
 	
-func testfunc():
-	print("game test function")
+func start_level():
+	print("game start level")
+	state = GameState.PLAYING
+	ui_game.ready_end()
+	for player in snakes:
+		player.paused = false
+		player.ui_player.start_level()

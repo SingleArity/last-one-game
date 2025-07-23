@@ -29,3 +29,9 @@ func update_bullets(ammo_amt):
 			$Bullets.get_child(i).animation = "available"
 		else:
 			$Bullets.get_child(i).animation = "out"
+
+func set_ready():
+	$Readied.play("ready")
+	
+func start_level():
+	$Readied.visible = false
