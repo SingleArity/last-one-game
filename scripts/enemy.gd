@@ -7,12 +7,15 @@ const confetti_scene = preload("res://sprites/fx/confetti.tscn")
 
 @export var move_speed: float
 
+var pushed_speed = 700
+
 var move_direction
 
 enum EnemyState{
 	IDLE,
 	MOVE,
-	MOVE_TO_TARGET
+	MOVE_TO_TARGET,
+	PUSHED
 }
 
 var target
@@ -39,14 +42,25 @@ func _process(delta: float) -> void:
 func _physics_process(delta: float) -> void:
 	match state:
 		EnemyState.IDLE:
-			pass
+			velocity = Vector2.ZERO
+			move_and_slide()
 		EnemyState.MOVE:
 			velocity = move_direction * move_speed
+			if(get_slide_collision_count() > 0):
+				for i in get_slide_collision_count():
+					var collision = get_slide_collision(i)
+					if(collision.get_collider()):
+						if(collision.get_collider().is_in_group("snakes")):
+							velocity = Vector2.ZERO
 			move_and_slide()
 			
 			if is_last_one and get_slide_collision_count() > 0:
 				print('picking a new direction')
 				change_state(EnemyState.MOVE)
+		EnemyState.PUSHED:
+			#print("being pushed!",move_direction * pushed_speed )
+			velocity = move_direction * pushed_speed
+			move_and_slide()
 
 func change_state(new_state):
 	var wait_low = wait_low_d
@@ -87,18 +101,31 @@ func on_enemy_shot(killer_player):
 		#confetti.global_position = global_position
 		#get_parent().add_child(confetti)
 
+func check_apply_push(player, push_power, pushdir):
+	if(get_slide_collision_count() > 0):
+		for i in get_slide_collision_count():
+			var collision = get_slide_collision(i)
+			if(collision.get_collider().is_in_group("snakes")):
+				if collision.get_collider().get_parent() == player:
+					move_direction = pushdir
+					state = EnemyState.PUSHED
+					print("pushing for ",push_power/100.0)
+					await get_tree().create_timer(push_power/100.0).timeout
+					change_state(EnemyState.IDLE)
+					
+	
 func _on_timer_timeout() -> void:
 	match state:
 		EnemyState.IDLE:
 			change_state(EnemyState.MOVE)
-			print("change to move!")
+			#print("change to move!")
 		EnemyState.MOVE:
 			if is_last_one:
 				change_state(EnemyState.MOVE)
-				print("keep moving!")
+				#print("keep moving!")
 			else:
 				change_state(EnemyState.IDLE)
-				print("change to idle")
+				#print("change to idle")
 
 func last_one():
 	print("last one!")

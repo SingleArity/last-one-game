@@ -34,7 +34,7 @@ position = Vector2(360, 48)
 shape = SubResource("RectangleShape2D_4msxo")
 
 [node name="WallBottom" type="StaticBody2D" parent="."]
-position = Vector2(360, 668)
+position = Vector2(360, 644)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WallBottom"]
 shape = SubResource("RectangleShape2D_4msxo")

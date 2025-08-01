@@ -126,7 +126,9 @@ func scale_level(resolution, aspect):
 	$WallTop/CollisionShape2D.shape.size.x = resolution.x
 
 	$LevelEnvironment/Walls.size.x = 720.0 * stretch_ratio - 40
-	
+	$LevelEnvironment/DropShadow.size.x = 720.0 * stretch_ratio - 40
+	$LevelEnvironment/TowerTR.position = Vector2(720.0 * stretch_ratio - 82.0, 88.0)
+	$LevelEnvironment/TowerBR.position = Vector2(720.0 * stretch_ratio - 82.0, 647.0)
 	
 	#Position Objects
 	$P1_Spawn.position.x = ($P1_Spawn.position.x * stretch_ratio)

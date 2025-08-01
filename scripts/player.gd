@@ -16,12 +16,14 @@ var segment_length = 10;
 var shrink_per_sec = 30;
 
 var move_vector := Vector2.ZERO
+var facing_vector := Vector2(1,0)
 var move_speed = 400.0
 var last_pos := Vector2.ZERO
 
 var is_alive = true
 var player_name = ""
 var player_id = 0
+var player_array_position
 var snake_color = Color.WHITE
 
 var input_up = 'ui_up'
@@ -34,6 +36,10 @@ var input_pause = 'p1_pause'
 
 var ammo_total = 5
 var ammo_current
+
+var powering_push = false
+var push_power = 0
+var push_power_max = 200
 
 var player_ui_scene = preload("res://scenes/ui_player.tscn")
 var ui_player
@@ -52,6 +58,8 @@ var max_rotation = deg_to_rad(360)
 
 func _ready():
 	Game.snakes.append(self)
+	#array pos should be last index
+	player_array_position = Game.snakes.size() - 1
 	
 func set_controls(player_id):
 	var controls = {"up": "ui_up", "down": "ui_down", "left": "ui_left", "right": "ui_right", 'shoot': 'p1_shoot', 'bomb': 'p1_bomb', 'pause': 'p1_pause'}
@@ -189,6 +197,9 @@ func _physics_process(delta: float) -> void:
 	
 	$Fuse.global_position = $Segments.points[0] if $Segments.get_point_count() else $Head.global_position
 
+	if(powering_push):
+		push_power_increase()
+		
 func get_head_diff() -> Vector2:
 	if $Segments.get_point_count() <= 0:
 		return Vector2.ZERO
@@ -209,14 +220,37 @@ func handle_input(delta):
 			#print(clamped)
 		#prev_move_vector = prev_move_vector.rotated(clamped)
 		#move_vector = prev_move_vector
-		$Head.rotation = move_vector.angle()
+		#$Head.rotation = move_vector.angle()
+		
+		#$Head.rotation = lerp_angle($Head.rotation, move_vector.angle(), .1)
+		facing_vector = move_vector
+	$Head.rotation = lerp_angle($Head.rotation, facing_vector.angle(), .1)
 	
 	if Input.is_action_just_pressed(input_shoot):
 		$Head/ThingThatShoots.try_shoot()
 	
 	if has_bomb and Input.is_action_just_pressed(input_bomb):
 		drop_bomb()
+	
+	if !has_bomb and Input.is_action_just_pressed(input_bomb):
+		powering_push = true
+		$Head/Sprite.play("push_%s" % player_id)
+		#$Head/Left.disabled = true
+		#$Head/Right.disabled = true
+	if !has_bomb and Input.is_action_just_released(input_bomb):
+		powering_push = false
+		$Head/Sprite.play("bombless_%s" % player_id)
+		#$Head/Left.disabled = false
+		#$Head/Right.disabled = false
+		for enemy in get_tree().get_nodes_in_group("enemies"):
+			var pushdir = Vector2.from_angle($Head.rotation)
+			enemy.check_apply_push(self, push_power, pushdir)
+		push_power = 0
 		
+func push_power_increase():
+	push_power += 1
+	push_power = min(push_power,push_power_max)
+	
 func drop_bomb():
 	#remove existing player from game players list
 	Game.snakes.remove_at(player_id)
@@ -225,7 +259,8 @@ func drop_bomb():
 	var new_player = duplicate(7)
 	new_player.has_bomb = false
 	new_player.length = 0
-	shrink_per_sec = 200
+	#shrink_per_sec = 200
+	$Head/Sprite.play("bomb_%s" % player_id)
 	is_player = false
 	new_player.player_id = player_id
 	get_parent().add_child(new_player)
@@ -234,7 +269,10 @@ func drop_bomb():
 	print("AMMO ", ammo_current)
 	new_player.init_bullets_ui()
 	Game.snakes[player_id] = new_player
+	Game.snakes.append(self)
+	player_array_position = Game.snakes.size() - 1
 	new_player.get_node('Fuse').emitting = false
+	new_player.get_node("Head/Sprite").play("bombless_%s" % player_id)
 
 func explode():
 	has_bomb = false
@@ -259,6 +297,7 @@ func got_exploded():
 		stunned_time += Game.player_stun_time
 		$Head/Sprite.play("stun_%s" % player_id)
 	if(!is_player):
+		Game.snakes.remove_at(player_array_position)
 		queue_free()
 		
 
