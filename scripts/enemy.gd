@@ -105,13 +105,15 @@ func check_apply_push(player, push_power, pushdir):
 	if(get_slide_collision_count() > 0):
 		for i in get_slide_collision_count():
 			var collision = get_slide_collision(i)
-			if(collision.get_collider().is_in_group("snakes")):
-				if collision.get_collider().get_parent() == player:
-					move_direction = pushdir
-					state = EnemyState.PUSHED
-					print("pushing for ",push_power/100.0)
-					await get_tree().create_timer(push_power/100.0).timeout
-					change_state(EnemyState.IDLE)
+			#potential bug, still hangs up on a null reference? might be fixed by "is_inside_tree"
+			if(collision.get_collider().is_inside_tree()):
+				if(collision.get_collider().is_in_group("snakes")):
+					if collision.get_collider().get_parent() == player:
+						move_direction = pushdir
+						state = EnemyState.PUSHED
+						print("pushing for ",push_power/100.0)
+						await get_tree().create_timer(push_power/100.0).timeout
+						change_state(EnemyState.IDLE)
 					
 	
 func _on_timer_timeout() -> void:

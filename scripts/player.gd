@@ -224,7 +224,10 @@ func handle_input(delta):
 		
 		#$Head.rotation = lerp_angle($Head.rotation, move_vector.angle(), .1)
 		facing_vector = move_vector
-	$Head.rotation = lerp_angle($Head.rotation, facing_vector.angle(), .1)
+	if abs($Head.rotation - facing_vector.angle()) > (.75*PI):
+		$Head.rotation = lerp_angle($Head.rotation, facing_vector.angle(), .75)
+	else:
+		$Head.rotation = lerp_angle($Head.rotation, facing_vector.angle(), .25)
 	
 	if Input.is_action_just_pressed(input_shoot):
 		$Head/ThingThatShoots.try_shoot()
@@ -235,21 +238,22 @@ func handle_input(delta):
 	if !has_bomb and Input.is_action_just_pressed(input_bomb):
 		powering_push = true
 		$Head/Sprite.play("push_%s" % player_id)
-		#$Head/Left.disabled = true
-		#$Head/Right.disabled = true
+		$Head/Left.disabled = true
+		$Head/Right.disabled = true
 	if !has_bomb and Input.is_action_just_released(input_bomb):
 		powering_push = false
 		$Head/Sprite.play("bombless_%s" % player_id)
-		#$Head/Left.disabled = false
-		#$Head/Right.disabled = false
+		$Head/Left.disabled = false
+		$Head/Right.disabled = false
 		for enemy in get_tree().get_nodes_in_group("enemies"):
 			var pushdir = Vector2.from_angle($Head.rotation)
 			enemy.check_apply_push(self, push_power, pushdir)
 		push_power = 0
 		
 func push_power_increase():
-	push_power += 1
-	push_power = min(push_power,push_power_max)
+	push_power = 100
+	#push_power += 1
+	#push_power = min(push_power,push_power_max)
 	
 func drop_bomb():
 	#remove existing player from game players list

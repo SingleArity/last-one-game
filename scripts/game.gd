@@ -44,11 +44,11 @@ func process():
 func on_enemy_killed(killer_player):
 	print("enemy ded")
 	print("killed by:", killer_player)
-	if(current_level.enemies_remaining <= 0):
-		print("no enemies left")
 	var points = 50
 	if(current_level.enemies_remaining <= 0):
+		ui_game.level_end(killer_player)
 		points += 950
+		
 	if(killer_player == 0):
 		score_p1 += points
 	elif(killer_player == 1):
@@ -98,7 +98,13 @@ func check_all_players_ready():
 			#if we found a not ready player, return value is false
 			all_ready = false
 	if(all_ready):
-		start_level()
+		start_countdown(3.0)
+
+func start_countdown(cd_time):
+	state = GameState.START_COUNTDOWN
+	ui_game.countdown_anim()
+	await get_tree().create_timer(cd_time).timeout
+	start_level()
 	
 func start_level():
 	print("game start level")

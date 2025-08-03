@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://c4pjnvkodt1q8"]
+[gd_scene load_steps=9 format=3 uid="uid://c4pjnvkodt1q8"]
 
 [ext_resource type="Script" uid="uid://bbgo46kml5agt" path="res://scripts/ui_game.gd" id="1_a7cbq"]
 [ext_resource type="FontFile" uid="uid://n5pl4diup1ls" path="res://fonts/8-bit Arcade In.ttf" id="2_y6wst"]
@@ -9,7 +9,70 @@ background_mode = 1
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_y6wst"]
 
+[sub_resource type="Animation" id="Animation_y6wst"]
+resource_name = "countdown"
+length = 4.0
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("VBoxContainer/HBoxContainer2/LevelComplete:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2, 2.25, 2.5, 2.75, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": ["3", "3 .", "3 . .", "3 . . .", "2", "2 .", "2 . . ", "2 . . .", "1", "1 .", "1 . .", "1 . . .", "GO!"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("VBoxContainer/HBoxContainer2/LevelComplete:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(4),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_rwq73"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("VBoxContainer/HBoxContainer2/LevelComplete:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["LEVEL COMPLETE!"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("VBoxContainer/HBoxContainer2/LevelComplete:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rwq73"]
+_data = {
+&"RESET": SubResource("Animation_rwq73"),
+&"countdown": SubResource("Animation_y6wst")
+}
+
 [node name="GameUI" type="Control"]
+z_index = 2
 layout_mode = 3
 anchors_preset = 0
 offset_right = 720.0
@@ -101,5 +164,10 @@ caret_blink = true
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_y6wst")
 camera_attributes = SubResource("CameraAttributesPractical_y6wst")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_rwq73")
+}
 
 [connection signal="text_submitted" from="DevConsole/Line" to="DevConsole" method="_on_line_text_submitted"]

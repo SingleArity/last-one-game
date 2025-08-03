@@ -25,11 +25,19 @@ func ready_up():
 	level_complete.text = "Press ANY Button\nto Ready Up!"
 
 func ready_end():
-	level_complete.text = "Press ANY Button\nto Ready Up!"
-	await get_tree().create_timer(1.0).timeout
-	level_complete.visible = false
-
+	pass
+	#idk if this func is needed anymore
+	#level_complete.visible = false
+	#level_complete.text = "Press ANY Button\nto Ready Up!"
 	
+
+func countdown_anim():
+	$AnimationPlayer.play("countdown")
+
+func level_end(winner):
+	level_complete.visible = true
+	level_complete.text = "P%s Wins Round!" % winner
+
 func _process(delta):
 	if(Input.is_action_just_pressed("dev_console")):
 		if(!$DevConsole.active):
