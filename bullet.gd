@@ -18,12 +18,13 @@ func _physics_process(delta: float) -> void:
 	position += (Vector2.RIGHT * velocity * delta).rotated(global_rotation)
 	var player_count = Game.snakes.size()
 	#does this handle the case where a player gets deleted while trying to loop 
-	#through the players here?
+	#through the players here? NOPE
 	for i in range(player_count):
 		if(i <= Game.snakes.size() - 1):
 			var snake = Game.snakes[i]
-			#if(snake.is_inside_tree()):
-			snake.handle_tail_collision(global_position, $CollisionShape2D.shape.radius)
+			#maybe this check actually handles it then?
+			if(snake.is_instance_valid()):
+				snake.handle_tail_collision(global_position, $CollisionShape2D.shape.radius)
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group('snakes') and is_bomb:
