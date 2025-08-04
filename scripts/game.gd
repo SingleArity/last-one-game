@@ -32,7 +32,6 @@ func _ready() -> void:
 	score_p1 = 0
 	score_p2 = 0
 	ui_game = get_node("/root/UiGame")
-	get_parent().call_deferred("add_child", ui_game)
 	Signals.connect("enemy_killed", on_enemy_killed)
 	resolution = DisplayServer.screen_get_size()
 
