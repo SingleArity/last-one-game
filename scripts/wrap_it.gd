@@ -1,5 +1,5 @@
-## This thing duplicates itself in a grid to make wrapping happen.
-## Each piece of a scene that should wrap, needs this script.
+## This thing duplicates the node it's on in a grid to make wrapping seamless.
+## Each node of a scene that should be duplicated for wrapping needs this script.
 extends Node2D
 
 static var places: Array[Vector2i]= [
@@ -26,7 +26,7 @@ func _ready():
 func _process(_d):
 	wrap_it()
 
-## this needs to copy all dynamic properties from the copied node to its clones.
+## this needs to copy all dynamic properties from self to the clones.
 func wrap_it():
 	var primary = get_parent()
 	var playarea: Vector2i = get_viewport().get_visible_rect().size
