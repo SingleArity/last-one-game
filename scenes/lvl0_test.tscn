@@ -1,16 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://vx1mo1b3g86k"]
+[gd_scene load_steps=5 format=3 uid="uid://vx1mo1b3g86k"]
 
 [ext_resource type="Script" uid="uid://pus8qg7fftii" path="res://scripts/level.gd" id="1_gwlwc"]
 [ext_resource type="PackedScene" uid="uid://dergidtflf3y2" path="res://scenes/fluidsnake.tscn" id="2_tdc87"]
 [ext_resource type="PackedScene" uid="uid://bh77ioonktc7q" path="res://scenes/enemy.tscn" id="3_c10a3"]
 [ext_resource type="PackedScene" uid="uid://dspbhh7kq2roa" path="res://scenes/level_environment.tscn" id="4_tdc87"]
-[ext_resource type="Texture2D" uid="uid://rkfypq42mtu1" path="res://icon.svg" id="4_y0mwx"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_4msxo"]
-size = Vector2(720, 64)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_5fb3c"]
-size = Vector2(64, 720)
 
 [node name="Level0" type="Node2D"]
 script = ExtResource("1_gwlwc")
@@ -26,40 +19,6 @@ position = Vector2(361, 209)
 position = Vector2(366, 499)
 
 [node name="LevelEnvironment" parent="." instance=ExtResource("4_tdc87")]
-
-[node name="WallTop" type="StaticBody2D" parent="."]
-position = Vector2(360, 48)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="WallTop"]
-shape = SubResource("RectangleShape2D_4msxo")
-
-[node name="WallBottom" type="StaticBody2D" parent="."]
-position = Vector2(360, 644)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="WallBottom"]
-shape = SubResource("RectangleShape2D_4msxo")
-
-[node name="visualmarker" type="Sprite2D" parent="WallBottom"]
-visible = false
-texture = ExtResource("4_y0mwx")
-offset = Vector2(0, -96)
-
-[node name="WallLeft" type="StaticBody2D" parent="."]
-position = Vector2(63, 360)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="WallLeft"]
-shape = SubResource("RectangleShape2D_5fb3c")
-
-[node name="WallRight" type="StaticBody2D" parent="."]
-position = Vector2(656, 360)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="WallRight"]
-shape = SubResource("RectangleShape2D_5fb3c")
-
-[node name="visualmarker" type="Sprite2D" parent="WallRight"]
-visible = false
-texture = ExtResource("4_y0mwx")
-offset = Vector2(-96, 0)
 
 [node name="P1_Spawn" type="Node2D" parent="."]
 position = Vector2(140, 360)

@@ -55,7 +55,6 @@ func _physics_process(delta: float) -> void:
 			move_and_slide()
 			
 			if is_last_one and get_slide_collision_count() > 0:
-				print('picking a new direction')
 				change_state(EnemyState.MOVE)
 		EnemyState.PUSHED:
 			#print("being pushed!",move_direction * pushed_speed )

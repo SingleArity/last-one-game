@@ -125,6 +125,8 @@ func initialize(
 	$Head/ThingThatShoots.max_bullets = ammo_total
 	$Head/ThingThatShoots.bullets = ammo_current
 	ui_player.update_bullets(ammo_current)
+	
+	$Fuse.global_position = $Head.global_position
 
 func _process(d):
 	

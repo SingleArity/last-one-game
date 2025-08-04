@@ -1,10 +1,11 @@
-[gd_scene load_steps=21 format=3 uid="uid://dergidtflf3y2"]
+[gd_scene load_steps=22 format=3 uid="uid://dergidtflf3y2"]
 
 [ext_resource type="Script" uid="uid://57iq6ym0hl8" path="res://scripts/player.gd" id="1_ucrwi"]
 [ext_resource type="PackedScene" uid="uid://bxvgjhfqqij2f" path="res://sprites/fx/fuse.tscn" id="2_cb2oc"]
 [ext_resource type="Texture2D" uid="uid://cftutnfdltcag" path="res://sprites/player_pink_test.png" id="3_a8e5g"]
 [ext_resource type="PackedScene" uid="uid://b5gc7oh375smn" path="res://thing_that_shoots.tscn" id="3_jpd0e"]
 [ext_resource type="Texture2D" uid="uid://dcjrd3m63hutk" path="res://sprites/player_blue_test.png" id="4_20qbx"]
+[ext_resource type="Script" uid="uid://bw4kxklhpuhtj" path="res://scripts/wrap_it.gd" id="6_20qbx"]
 
 [sub_resource type="Curve" id="Curve_jpd0e"]
 _data = [Vector2(0, 0.0934647), 0.0, 16.6743, 0, 0, Vector2(0.0711207, 0.501643), 1.31802, -0.0025548, 0, 1, Vector2(1, 0.49927), 0.0, 0.0, 0, 0]
@@ -152,11 +153,12 @@ size = Vector2(30, 9)
 script = ExtResource("1_ucrwi")
 
 [node name="Fuse" parent="." instance=ExtResource("2_cb2oc")]
-z_index = 2
+script = ExtResource("6_20qbx")
 
 [node name="Segments" type="Line2D" parent="."]
 z_index = 2
 width_curve = SubResource("Curve_jpd0e")
+script = ExtResource("6_20qbx")
 
 [node name="Head" type="CharacterBody2D" parent="." groups=["snakes"]]
 collision_layer = 2
@@ -164,10 +166,12 @@ collision_layer = 2
 [node name="Head" type="CollisionShape2D" parent="Head"]
 position = Vector2(-2, 0)
 shape = SubResource("RectangleShape2D_a8e5g")
+script = ExtResource("6_20qbx")
 
 [node name="Sprite" type="AnimatedSprite2D" parent="Head"]
 sprite_frames = SubResource("SpriteFrames_a8e5g")
 animation = &"idle_0"
+script = ExtResource("6_20qbx")
 
 [node name="ThingThatShoots" parent="Head" instance=ExtResource("3_jpd0e")]
 position = Vector2(32, 0)
