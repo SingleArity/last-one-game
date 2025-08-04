@@ -30,8 +30,11 @@ func _physics_process(delta: float) -> void:
 				snake.handle_tail_collision(global_position, $CollisionShape2D.shape.radius)
 
 func _on_body_entered(body: Node2D) -> void:
-	if body.is_in_group('snakes') and is_bomb:
-		body.get_parent().got_exploded()
+	if body.is_in_group('snakes'):
+		if is_bomb:
+			body.get_parent().got_exploded()
+		else:
+			body.get_parent().got_shot()
 	if body.is_in_group('enemies'):
 		body.on_enemy_shot(player)
 		

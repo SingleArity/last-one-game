@@ -10,6 +10,7 @@ var score_p2
 var p1_length := 500
 var p2_length := 500
 var player_stun_time: float = 3.0
+var player_shot_stun_time: float = 1.0
 
 var snakes = []
 

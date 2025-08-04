@@ -294,17 +294,24 @@ func explode():
 	splosion.get_node("AnimatedSprite2D").play("default")
 	get_parent().add_child(splosion)
 	$Fuse.emitting = false
+
+func got_shot():
+	if is_alive && is_player:
+		stun(Game.player_shot_stun_time)
 	
 func got_exploded():
 	if is_alive && is_player:
 		Game.got_exploded(player_id)
 		#is_alive = false
-		stunned = true
-		stunned_time += Game.player_stun_time
-		$Head/Sprite.play("stun_%s" % player_id)
+		stun(Game.player_stun_time)
 	if(!is_player):
 		Game.snakes.remove_at(player_array_position)
 		queue_free()
+
+func stun(time: float):
+	stunned = true
+	stunned_time += time
+	$Head/Sprite.play("stun_%s" % player_id)
 		
 
 func handle_tail_collision(pos: Vector2, radius: float) -> bool:
