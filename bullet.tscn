@@ -1,11 +1,65 @@
-[gd_scene load_steps=4 format=3 uid="uid://ce6extbnyxsg1"]
+[gd_scene load_steps=9 format=3 uid="uid://ce6extbnyxsg1"]
 
 [ext_resource type="Script" uid="uid://dlu7o2e8ep46c" path="res://bullet.gd" id="1_v8qja"]
 [ext_resource type="Texture2D" uid="uid://djymd776x6qjc" path="res://sprites/bullet_test.png" id="2_v8qja"]
+[ext_resource type="Script" uid="uid://bw4kxklhpuhtj" path="res://scripts/wrap_it.gd" id="3_2b2rl"]
+[ext_resource type="Script" uid="uid://cfyy26ow7yrqr" path="res://scripts/wrap_teleporter.gd" id="4_b7duk"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_v8qja"]
 resource_local_to_scene = true
 radius = 12.0416
+
+[sub_resource type="Animation" id="Animation_2b2rl"]
+resource_name = "bullet"
+length = 2.0
+step = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(2, 2), Vector2(2, 2), Vector2(1e-05, 1e-05)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.8),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_on_bullet_finished"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_b7duk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(2, 2)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_t2bd8"]
+_data = {
+&"RESET": SubResource("Animation_b7duk"),
+&"bullet": SubResource("Animation_2b2rl")
+}
 
 [node name="Bullet" type="Area2D"]
 collision_layer = 0
@@ -16,11 +70,20 @@ script = ExtResource("1_v8qja")
 scale = Vector2(2, 2)
 texture = ExtResource("2_v8qja")
 hframes = 2
+script = ExtResource("3_2b2rl")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_v8qja")
+script = ExtResource("3_2b2rl")
 
-[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+[node name="WrapTeleporter" type="Node" parent="."]
+script = ExtResource("4_b7duk")
+metadata/_custom_type_script = "uid://cfyy26ow7yrqr"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_t2bd8")
+}
+autoplay = "bullet"
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
-[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

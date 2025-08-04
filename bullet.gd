@@ -7,6 +7,9 @@ var player: int
 
 var is_bomb = false
 
+func _ready():
+	$AnimationPlayer.play("bullet")
+
 func scale_up(val: float):
 	print(val)
 	print($CollisionShape2D.shape.radius)
@@ -34,5 +37,5 @@ func _on_body_entered(body: Node2D) -> void:
 		
 
 
-func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
+func _on_bullet_finished() -> void:
 	queue_free()

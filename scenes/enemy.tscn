@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://bh77ioonktc7q"]
+[gd_scene load_steps=7 format=3 uid="uid://bh77ioonktc7q"]
 
 [ext_resource type="Texture2D" uid="uid://b7l6isfj3htic" path="res://sprites/enemy_test.png" id="1_7p1mj"]
 [ext_resource type="Script" uid="uid://ccmluw0d1acva" path="res://scripts/enemy.gd" id="1_md0e3"]
 [ext_resource type="Script" uid="uid://bw4kxklhpuhtj" path="res://scripts/wrap_it.gd" id="2_4ra3w"]
+[ext_resource type="Script" uid="uid://cfyy26ow7yrqr" path="res://scripts/wrap_teleporter.gd" id="4_5uy6h"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_md0e3"]
 radius = 20.0
@@ -35,5 +36,9 @@ script = ExtResource("2_4ra3w")
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true
+
+[node name="WrapTeleporter" type="Node" parent="."]
+script = ExtResource("4_5uy6h")
+metadata/_custom_type_script = "uid://cfyy26ow7yrqr"
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -1,3 +1,4 @@
+class_name WrapTeleporter
 extends Node
 
 @export var subject: Node2D
@@ -7,6 +8,8 @@ func _ready():
 	if subject == null:
 		subject = get_parent()
 	assert(subject is Node2D, "WrapTeleporter needs a 'subject' param that is a Node2D")
+	if len(to_teleport) == 0:
+		to_teleport = [subject]
 
 func _physics_process(_d):
 	var bounds := get_viewport().get_visible_rect().size
