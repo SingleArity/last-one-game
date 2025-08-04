@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://dergidtflf3y2"]
+[gd_scene load_steps=23 format=3 uid="uid://dergidtflf3y2"]
 
 [ext_resource type="Script" uid="uid://57iq6ym0hl8" path="res://scripts/player.gd" id="1_ucrwi"]
 [ext_resource type="PackedScene" uid="uid://bxvgjhfqqij2f" path="res://sprites/fx/fuse.tscn" id="2_cb2oc"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://b5gc7oh375smn" path="res://thing_that_shoots.tscn" id="3_jpd0e"]
 [ext_resource type="Texture2D" uid="uid://dcjrd3m63hutk" path="res://sprites/player_blue_test.png" id="4_20qbx"]
 [ext_resource type="Script" uid="uid://bw4kxklhpuhtj" path="res://scripts/wrap_it.gd" id="6_20qbx"]
+[ext_resource type="Script" uid="uid://cfyy26ow7yrqr" path="res://scripts/wrap_teleporter.gd" id="7_a8e5g"]
 
 [sub_resource type="Curve" id="Curve_jpd0e"]
 _data = [Vector2(0, 0.0934647), 0.0, 16.6743, 0, 0, Vector2(0.0711207, 0.501643), 1.31802, -0.0025548, 0, 1, Vector2(1, 0.49927), 0.0, 0.0, 0, 0]
@@ -191,3 +192,8 @@ shape = SubResource("RectangleShape2D_xrtif")
 [node name="Right" type="CollisionShape2D" parent="Head"]
 position = Vector2(32, 28.5)
 shape = SubResource("RectangleShape2D_xrtif")
+
+[node name="WrapTeleporter" type="Node" parent="." node_paths=PackedStringArray("subject", "to_teleport")]
+script = ExtResource("7_a8e5g")
+subject = NodePath("../Head")
+to_teleport = [NodePath("../Head"), NodePath("../Segments")]
