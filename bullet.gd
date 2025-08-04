@@ -23,7 +23,7 @@ func _physics_process(delta: float) -> void:
 		if(i <= Game.snakes.size() - 1):
 			var snake = Game.snakes[i]
 			#maybe this check actually handles it then?
-			if(snake.is_instance_valid()):
+			if(is_instance_valid(snake)):
 				snake.handle_tail_collision(global_position, $CollisionShape2D.shape.radius)
 
 func _on_body_entered(body: Node2D) -> void:
