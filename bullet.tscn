@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://dlu7o2e8ep46c" path="res://bullet.gd" id="1_v8qja"]
 [ext_resource type="Texture2D" uid="uid://djymd776x6qjc" path="res://sprites/bullet_test.png" id="2_v8qja"]
-[ext_resource type="Script" uid="uid://bw4kxklhpuhtj" path="res://scripts/wrap_it.gd" id="3_2b2rl"]
-[ext_resource type="Script" uid="uid://cfyy26ow7yrqr" path="res://scripts/wrap_teleporter.gd" id="4_b7duk"]
+[ext_resource type="Script" uid="uid://bw4kxklhpuhtj" path="res://scripts/wrap_seamless.gd" id="3_2b2rl"]
+[ext_resource type="Script" uid="uid://cfyy26ow7yrqr" path="res://scripts/wrap_teleport.gd" id="4_b7duk"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_v8qja"]
 resource_local_to_scene = true

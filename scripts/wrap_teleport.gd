@@ -1,5 +1,5 @@
 ## This thing wraps a game-piece parent node when it crosses the edge.
-class_name WrapTeleporter
+class_name WrapTeleport
 extends Node
 
 @export var subject: Node2D
