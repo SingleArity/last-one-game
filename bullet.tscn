@@ -76,7 +76,7 @@ script = ExtResource("3_2b2rl")
 shape = SubResource("CircleShape2D_v8qja")
 script = ExtResource("3_2b2rl")
 
-[node name="WrapTeleporter" type="Node" parent="."]
+[node name="WrapTeleport" type="Node" parent="."]
 script = ExtResource("4_b7duk")
 metadata/_custom_type_script = "uid://cfyy26ow7yrqr"
 
